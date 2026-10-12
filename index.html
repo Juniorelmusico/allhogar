@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>allhogar</title>
+<meta name="description" content="allhogar — todo para tu hogar, cuarto por cuarto. Productos para sala, cocina, comedor, dormitorios, baños, patio y tu mascota. Envíos a todo el país.">
+<meta name="theme-color" content="#E3AE4F">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_EC">
+<meta property="og:site_name" content="allhogar">
+<meta property="og:title" content="allhogar | Todo para tu hogar">
+<meta property="og:description" content="Entra a la casa en 3D y descubre los productos de cada espacio. Envíos a todo el país.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 14 L88 46 H12 Z' fill='%23C57A52'/%3E%3Crect x='20' y='46' width='60' height='42' rx='4' fill='%236E8A5E'/%3E%3Crect x='41' y='70' width='18' height='18' rx='2' fill='%23E3AE4F'/%3E%3C/svg%3E">
+<style>
+  :root{
+    --terracota:#C57A52;
+    --terracota-osc:#A8603C;
+    --salvia:#9DB39A;
+    --olivo:#6E8A5E;
+    --olivo-osc:#546B46;
+    --mostaza:#E3AE4F;
+    --mostaza-claro:#F2D79A;
+    --crema:#F7F2E8;
+    --crema-osc:#EDE4D3;
+    --marron:#8C5E3C;
+    --ink:#3B3027;
+    --card:#FFFFFF;
+    --sombra:0 14px 38px rgba(59,48,39,.13);
+  }
+  /* modo oscuro: se mantiene la misma paleta, en versión nocturna */
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --crema:#241F1A; --crema-osc:#332B23; --card:#2E2721; --ink:#F0E7D8;
+      --olivo-osc:#9DB39A; --terracota-osc:#DDA07A; --mostaza-claro:#C79A49;
+      --sombra:0 14px 38px rgba(0,0,0,.45);
+    }
+  }
+  :root[data-theme="dark"]{
+    --crema:#241F1A; --crema-osc:#332B23; --card:#2E2721; --ink:#F0E7D8;
+    --olivo-osc:#9DB39A; --terracota-osc:#DDA07A; --mostaza-claro:#C79A49;
+    --sombra:0 14px 38px rgba(0,0,0,.45);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);background:var(--crema);line-height:1.55;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  svg{display:block}
+
+  /* ================= HEADER ================= */
+  header{position:sticky;top:0;z-index:60;background:var(--crema);border-bottom:1px solid var(--crema-osc);
+         display:flex;align-items:center;justify-content:space-between;padding:10px 5%;backdrop-filter:blur(6px)}
+  .logo{display:flex;align-items:center;gap:11px}
+  .logo svg{width:42px;height:42px}
+  .logo-text{font-size:1.4rem;font-weight:800;letter-spacing:-.8px;color:var(--olivo-osc)}
+  .logo-text span{color:var(--terracota)}
+  nav a{margin-left:20px;font-weight:600;font-size:.94rem;position:relative}
+  nav a::after{content:"";position:absolute;left:0;bottom:-4px;width:0;height:2px;background:var(--terracota);transition:width .28s}
+  nav a:hover::after{width:100%}
+
+  /* ================= HERO ================= */
+  .hero{position:relative;padding:72px 6% 66px;text-align:center;overflow:hidden;
+        background:linear-gradient(170deg,var(--crema) 0%,var(--mostaza-claro) 55%,var(--crema-osc) 100%)}
+  .hero::before,.hero::after{content:"";position:absolute;border-radius:50%;filter:blur(2px);opacity:.5}
+  .hero::before{width:280px;height:280px;background:var(--salvia);top:-90px;left:-70px;animation:drift 16s ease-in-out infinite}
+  .hero::after{width:220px;height:220px;background:var(--terracota);bottom:-110px;right:-60px;opacity:.28;animation:drift 20s ease-in-out infinite reverse}
+  .hero > *{position:relative;z-index:2}
+  .hero .mark{width:120px;margin:0 auto 16px;animation:floaty 5s ease-in-out infinite}
+  .hero h1{font-size:clamp(2.1rem,5vw,3.7rem);line-height:1.06;letter-spacing:-1.4px;max-width:840px;margin:0 auto 16px}
+  .hero p{font-size:1.1rem;max-width:620px;margin:0 auto 28px}
+  .btn{display:inline-block;background:var(--olivo-osc);color:var(--crema);padding:14px 34px;border-radius:999px;font-weight:700;
+       border:none;cursor:pointer;font-size:1rem;transition:transform .22s,box-shadow .22s}
+  .btn:hover{transform:translateY(-3px);box-shadow:var(--sombra)}
+  .badges{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:32px}
+  .badge{background:var(--crema);padding:8px 17px;border-radius:999px;font-size:.87rem;font-weight:600;box-shadow:var(--sombra);
+         opacity:0;animation:popIn .6s ease-out forwards}
+  .badge:nth-child(1){animation-delay:.25s} .badge:nth-child(2){animation-delay:.4s} .badge:nth-child(3){animation-delay:.55s}
+
+  @keyframes floaty{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-12px) rotate(1deg)}}
+  @keyframes drift{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(40px,30px) scale(1.12)}}
+  @keyframes popIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+  /* ================= CASA ================= */
+  .casa{padding:70px 5% 50px}
+  .section-title{text-align:center;font-size:clamp(1.8rem,3.5vw,2.6rem);letter-spacing:-.7px;margin-bottom:8px}
+  .section-sub{text-align:center;max-width:620px;margin:0 auto 28px;opacity:.75}
+
+  .controls{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+  .chip{border:2px solid var(--olivo);background:var(--crema);color:var(--olivo-osc);padding:9px 17px;border-radius:999px;
+        font-weight:700;cursor:pointer;font-size:.9rem;transition:all .22s}
+  .chip:hover{transform:translateY(-2px)}
+  .chip.active{background:var(--olivo);color:var(--crema);box-shadow:0 6px 16px rgba(110,138,94,.35)}
+  .chip.alt{border-color:var(--terracota);color:var(--terracota-osc)}
+  .chip.alt.active{background:var(--terracota);color:#fff;box-shadow:0 6px 16px rgba(197,122,82,.35)}
+
+  .layout{display:grid;grid-template-columns:1fr 1fr;gap:46px;max-width:1280px;margin:0 auto;align-items:start}
+  .stage-wrap{position:sticky;top:92px}
+  .stage{position:relative;perspective:1500px;height:580px;display:flex;align-items:center;justify-content:center;
+         cursor:grab;touch-action:none;border-radius:30px;overflow:hidden;
+         background:radial-gradient(ellipse at 50% 30%,var(--sky1) 0%,var(--sky2) 70%);transition:background .8s}
+  .stage:active{cursor:grabbing}
+
+  /* sol / luna detrás de la casa */
+  .orb{position:absolute;top:48px;left:50%;width:120px;height:120px;margin-left:-60px;border-radius:50%;
+       background:var(--orb);filter:blur(1px);opacity:.75;animation:pulseOrb 7s ease-in-out infinite;transition:background .8s}
+  @keyframes pulseOrb{0%,100%{transform:scale(1);opacity:.6}50%{transform:scale(1.14);opacity:.85}}
+
+  /* partículas de temporada */
+  .sky{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+  .pt{position:absolute;top:-40px;font-size:18px;opacity:0;animation:fall linear infinite}
+  @keyframes fall{
+    0%{opacity:0;transform:translateY(-20px) translateX(0) rotate(0)}
+    10%{opacity:.9}
+    90%{opacity:.75}
+    100%{opacity:0;transform:translateY(620px) translateX(var(--dx,40px)) rotate(420deg)}
+  }
+
+  .house{position:relative;width:0;height:0;transform-style:preserve-3d;
+         transform:rotateX(var(--tilt,58deg)) rotateZ(var(--spin,-28deg));
+         transition:transform .3s ease-out;animation:sway 12s ease-in-out infinite}
+  .house.dragging{animation:none;transition:none}
+  @keyframes sway{0%,100%{translate:0 0}50%{translate:0 -10px}}
+
+  .floor{position:absolute;width:400px;height:300px;margin-left:-200px;margin-top:-150px;transform-style:preserve-3d;
+         transition:opacity .45s}
+  .floor.dim{opacity:.18}
+
+  .room{position:absolute;transform-style:preserve-3d;cursor:pointer;
+        transform:translateZ(var(--z));transition:transform .35s cubic-bezier(.2,.8,.3,1);
+        animation:rise .8s cubic-bezier(.2,.8,.3,1) backwards;animation-delay:var(--d)}
+  @keyframes rise{from{transform:translateZ(calc(var(--z) - 160px));opacity:0}to{transform:translateZ(var(--z));opacity:1}}
+  .room:hover{transform:translateZ(calc(var(--z) + 22px))}
+  .face{position:absolute;left:50%;top:50%}
+  .f-floor{background:var(--room-bg,var(--crema));border:1.5px solid rgba(59,48,39,.3);display:flex;align-items:center;justify-content:center;
+           transition:background .4s}
+  .f-floor b{font-size:11px;font-weight:800;color:var(--ink);text-align:center;line-height:1.2;padding:2px;
+             transform:rotateZ(var(--text-fix,0deg));transition:transform .3s}
+  .wall{background:var(--wall,#E6DAC4);border:1px solid rgba(59,48,39,.2)}
+  .wall.dark{background:var(--wall-dark,#D3C3A6)}
+  .room.hot .f-floor{animation:glow 1.8s ease-in-out infinite}
+  @keyframes glow{0%,100%{background:var(--acento)}50%{background:var(--mostaza-claro)}}
+
+  /* techo */
+  .roof{position:absolute;transform-style:preserve-3d;opacity:0;transform:translateZ(var(--rz)) scale(.9);
+        transition:opacity .45s,transform .45s;pointer-events:none}
+  .roof.on{opacity:.8;transform:translateZ(var(--rz)) scale(1)}
+  .slope{position:absolute;left:50%;top:50%;width:424px;height:182px;background:var(--roof);border:1px solid rgba(0,0,0,.18);
+         transition:background .8s}
+
+  /* temporadas */
+  .casa[data-season="primavera"]{--acento:#B7D3A8;--roof:#C98BA4;--sky1:#EFF7E9;--sky2:#F7F2E8;--orb:#F2D79A}
+  .casa[data-season="verano"]  {--acento:#F2D79A;--roof:#C57A52;--sky1:#FDF3D4;--sky2:#F7F2E8;--orb:#E3AE4F}
+  .casa[data-season="otono"]   {--acento:#E0A86F;--roof:#A8603C;--sky1:#F8E6D2;--sky2:#F7F2E8;--orb:#C57A52}
+  .casa[data-season="invierno"]{--acento:#C6D6DC;--roof:#6E8A5E;--sky1:#EAF1F3;--sky2:#F7F2E8;--orb:#DCE7EA}
+
+  /* ================= PRODUCTOS ================= */
+  .rooms-list{display:flex;flex-direction:column;gap:26px}
+  .block{background:var(--crema);border:1px solid var(--crema-osc);border-radius:22px;padding:26px;box-shadow:var(--sombra);
+         border-left:9px solid var(--acento);transition:border-color .35s,transform .35s}
+  .block.active{border-left-color:var(--terracota);transform:translateX(5px)}
+  .block h3{font-size:1.3rem;letter-spacing:-.3px}
+  .block .note{font-size:.83rem;opacity:.6;margin-bottom:16px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:13px}
+  .card{border:1px solid var(--crema-osc);border-radius:18px;padding:15px;background:var(--card);
+        opacity:0;transform:translateY(16px);transition:opacity .5s,transform .5s,box-shadow .25s}
+  .card.in{opacity:1;transform:none}
+  .card:hover{transform:translateY(-6px) rotate(-.6deg);box-shadow:var(--sombra)}
+  .card .emoji{font-size:2.2rem;margin-bottom:6px;display:inline-block;transition:transform .3s}
+  .card:hover .emoji{transform:scale(1.2) rotate(8deg)}
+  .card h4{font-size:.94rem;margin-bottom:5px}
+  .card .price{font-weight:800;font-size:1.05rem;color:var(--terracota-osc);margin-bottom:10px}
+  .card .add{display:inline-block;background:var(--mostaza);color:var(--ink);font-size:.82rem;font-weight:700;
+             padding:7px 15px;border-radius:999px;transition:background .2s}
+  .card .add:hover{background:var(--terracota);color:#fff}
+  .empty{grid-column:1/-1;opacity:.6;font-style:italic;padding:10px 0}
+
+  .envio{background:var(--olivo-osc);color:var(--mostaza-claro);text-align:center;padding:24px 6%;font-weight:600}
+  .cta{padding:80px 6%;text-align:center;background:linear-gradient(140deg,var(--mostaza-claro),var(--crema-osc))}
+  .cta h2{font-size:clamp(1.7rem,3.5vw,2.4rem);margin-bottom:12px}
+  .cta p{margin-bottom:26px}
+  footer{background:var(--ink);color:#d6cbbd;padding:34px 6%;text-align:center;font-size:.9rem}
+  footer strong{color:var(--mostaza)}
+
+  @media(max-width:980px){
+    .layout{grid-template-columns:1fr}
+    .stage-wrap{position:relative;top:0}
+    .stage{height:440px}
+    nav a{margin-left:12px;font-size:.85rem}
+  }
+  @media(max-width:620px){ nav{display:none} .stage{height:370px} }
+  @media(prefers-reduced-motion:reduce){ *{animation:none!important;transition-duration:.01ms!important} }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <svg viewBox="0 0 100 100" aria-hidden="true">
+      <path d="M50 14 L88 46 H12 Z" fill="var(--terracota)"/>
+      <rect x="20" y="46" width="60" height="42" rx="4" fill="var(--olivo)"/>
+      <rect x="29" y="55" width="18" height="16" rx="2" fill="#F2D79A"/>
+      <rect x="53" y="55" width="18" height="16" rx="2" fill="#9DB39A"/>
+      <rect x="41" y="74" width="18" height="14" rx="2" fill="var(--mostaza)"/>
+    </svg>
+    <div class="logo-text">all<span>hogar</span></div>
+  </div>
+  <nav>
+    <a href="#casa">La casa</a>
+    <a href="#casa">Temporadas</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="mark">
+    <svg viewBox="0 0 100 100" aria-hidden="true">
+      <path d="M50 14 L88 46 H12 Z" fill="#C57A52"/>
+      <rect x="20" y="46" width="60" height="42" rx="4" fill="#6E8A5E"/>
+      <rect x="29" y="55" width="18" height="16" rx="2" fill="#F2D79A"/>
+      <rect x="53" y="55" width="18" height="16" rx="2" fill="#9DB39A"/>
+      <rect x="41" y="74" width="18" height="14" rx="2" fill="#E3AE4F"/>
+    </svg>
+  </div>
+  <h1>Todo para tu hogar, cuarto por cuarto</h1>
+  <p>Entra a la casa en 3D, gírala, sube al segundo piso y descubre los productos de cada espacio. Cambia de estación y la colección cambia contigo.</p>
+  <a class="btn" href="#casa">Entrar a la casa ↓</a>
+  <div class="badges">
+    <span class="badge">🚚 Envío a todo el país</span>
+    <span class="badge">🔒 Pago seguro</span>
+    <span class="badge">↩️ Cambios fáciles</span>
+  </div>
+</section>
+
+<section class="casa" id="casa" data-season="primavera">
+  <h2 class="section-title">Recorre la casa en 3D</h2>
+  <p class="section-sub">Arrastra para girarla, toca una habitación para ver sus productos y cambia la estación para ver otra colección.</p>
+
+  <div class="controls" id="seasons">
+    <button class="chip active" data-season="primavera">🌸 Primavera</button>
+    <button class="chip" data-season="verano">☀️ Verano</button>
+    <button class="chip" data-season="otono">🍂 Otoño</button>
+    <button class="chip" data-season="invierno">❄️ Invierno</button>
+  </div>
+  <div class="controls">
+    <button class="chip alt active" id="btnPb">🪑 Planta baja</button>
+    <button class="chip alt active" id="btnPa">🛏️ Planta alta</button>
+    <button class="chip alt" id="btnRoof">🏠 Techo</button>
+    <button class="chip" id="btnAuto">🔄 Girar solo</button>
+    <button class="chip" id="btnLeft">↺</button>
+    <button class="chip" id="btnRight">↻</button>
+  </div>
+
+  <div class="layout">
+    <div class="stage-wrap">
+      <div class="stage" id="stage">
+        <div class="orb"></div>
+        <div class="sky" id="sky"></div>
+        <div class="house" id="house">
+          <div class="floor" id="floor1"></div>
+          <div class="floor" id="floor0"></div>
+          <div class="roof" id="roof">
+            <div class="slope" id="slopeA"></div>
+            <div class="slope" id="slopeB"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="rooms-list" id="rooms"></div>
+  </div>
+</section>
+
+<div class="envio">🚚 Envíos a todo el país en 3 a 7 días hábiles · Compra 100% segura</div>
+
+<section class="cta" id="contacto">
+  <h2>¿No encuentras lo que buscas?</h2>
+  <p>Escríbenos y lo conseguimos para ti.</p>
+  <a class="btn" href="https://wa.me/593000000000" target="_blank" rel="noopener">Escribir por WhatsApp</a>
+</section>
+
+<footer>
+  <p><strong>allhogar</strong> · Todo para tu hogar</p>
+  <p>© 2026 · Todos los derechos reservados</p>
+</footer>
+
+<script>
+/* ================= DATOS ================= */
+const WHATSAPP = "593000000000";   // ← cambia por tu número real
+const WALL_H = 58, LEVEL_GAP = 74;
+
+const PLAN = [
+  { sec:"sala",    level:0, x:0,   y:0,   w:170, h:150, label:"Sala" },
+  { sec:"comedor", level:0, x:175, y:0,   w:110, h:150, label:"Comedor" },
+  { sec:"cocina",  level:0, x:290, y:0,   w:110, h:100, label:"Cocina" },
+  { sec:"banos",   level:0, x:290, y:105, w:110, h:45,  label:"Baño", bath:true },
+  { sec:"patio",   level:0, x:0,   y:155, w:280, h:145, label:"Patio", open:true },
+  { sec:"mascota", level:0, x:285, y:155, w:115, h:145, label:"Mascota 🐾", open:true },
+  { sec:"nino",    level:1, x:0,   y:0,   w:130, h:150, label:"Cuarto niño" },
+  { sec:"banos",   level:1, x:135, y:0,   w:60,  h:150, label:"Baño", bath:true },
+  { sec:"nina",    level:1, x:200, y:0,   w:130, h:150, label:"Cuarto niña" },
+  { sec:"banos",   level:1, x:335, y:0,   w:65,  h:150, label:"Baño", bath:true },
+  { sec:"papas",   level:1, x:0,   y:160, w:250, h:140, label:"Cuarto papás" },
+  { sec:"banos",   level:1, x:255, y:160, w:145, h:140, label:"Baño", bath:true }
+];
+
+const SECTIONS = {
+  nino:   { label:"Cuarto de niño", items:[
+    {e:"🧸", n:"Set de peluches",            p:24.90, s:["todas"]},
+    {e:"🚀", n:"Lámpara proyector estrellas",p:21.00, s:["todas"]},
+    {e:"🪁", n:"Cometa para el patio",       p:12.00, s:["primavera","verano"]},
+    {e:"🛏️", n:"Edredón térmico infantil",   p:28.50, s:["otono","invierno"]}
+  ]},
+  nina:   { label:"Cuarto de niña", items:[
+    {e:"🎀", n:"Organizador de cuarto", p:15.00, s:["todas"]},
+    {e:"🪞", n:"Espejo con luces LED",  p:32.00, s:["todas"]},
+    {e:"🌷", n:"Lámpara de flores",     p:22.00, s:["primavera"]},
+    {e:"🧣", n:"Pijama polar",          p:19.90, s:["invierno"]}
+  ]},
+  papas:  { label:"Cuarto de papás", items:[
+    {e:"🛌", n:"Juego de sábanas de algodón", p:39.00, s:["todas"]},
+    {e:"🗄️", n:"Organizador bajo cama",       p:17.00, s:["todas"]},
+    {e:"🪟", n:"Cortina blackout",            p:29.00, s:["verano"]},
+    {e:"🔥", n:"Manta eléctrica",             p:45.00, s:["invierno"]}
+  ]},
+  banos:  { label:"Baños", items:[
+    {e:"🚿", n:"Set de accesorios de baño", p:30.00, s:["todas"]},
+    {e:"🧴", n:"Dispensador automático",    p:19.00, s:["todas"]},
+    {e:"🪣", n:"Organizador de ducha",      p:14.00, s:["todas"]},
+    {e:"🧖", n:"Toallas de microfibra",     p:17.00, s:["otono","invierno"]}
+  ]},
+  sala:   { label:"Sala", items:[
+    {e:"🛋️", n:"Cojines decorativos", p:14.00, s:["todas"]},
+    {e:"💡", n:"Tira LED para TV",    p:16.00, s:["todas"]},
+    {e:"🌿", n:"Planta artificial",   p:25.00, s:["primavera"]},
+    {e:"🕯️", n:"Velas aromáticas",    p:9.00,  s:["otono","invierno"]}
+  ]},
+  comedor:{ label:"Comedor", items:[
+    {e:"🍽️", n:"Vajilla de 12 piezas",   p:49.00, s:["todas"]},
+    {e:"🧺", n:"Mantel antimanchas",     p:13.00, s:["todas"]},
+    {e:"🥤", n:"Set de vasos de vidrio", p:16.00, s:["verano"]},
+    {e:"🍲", n:"Olla para sopas",        p:34.00, s:["otono","invierno"]}
+  ]},
+  cocina: { label:"Cocina", items:[
+    {e:"🔪", n:"Set de cuchillos",   p:27.00, s:["todas"]},
+    {e:"⚖️", n:"Balanza digital",    p:12.00, s:["todas"]},
+    {e:"🍹", n:"Licuadora portátil", p:21.00, s:["verano"]},
+    {e:"☕", n:"Cafetera francesa",   p:18.00, s:["otono","invierno"]}
+  ]},
+  patio:  { label:"Patio", items:[
+    {e:"💡", n:"Luces solares",        p:19.00, s:["todas"]},
+    {e:"🪴", n:"Macetas de cerámica",  p:13.00, s:["primavera"]},
+    {e:"⛱️", n:"Sombrilla de jardín",  p:58.00, s:["verano"]},
+    {e:"🍂", n:"Set de jardinería",    p:16.00, s:["otono"]},
+    {e:"❄️", n:"Cubierta para muebles",p:22.00, s:["invierno"]}
+  ]},
+  mascota:{ label:"Espacio para mascota", items:[
+    {e:"🐶", n:"Cama para perro",      p:26.00, s:["todas"]},
+    {e:"🐱", n:"Rascador para gato",   p:33.00, s:["todas"]},
+    {e:"🦴", n:"Juguetes resistentes", p:9.00,  s:["todas"]},
+    {e:"🧊", n:"Bebedero refrigerante",p:24.00, s:["verano"]},
+    {e:"🧥", n:"Abrigo para mascota",  p:15.00, s:["invierno"]}
+  ]}
+};
+
+const SEASONS = { primavera:"🌸 Primavera", verano:"☀️ Verano", otono:"🍂 Otoño", invierno:"❄️ Invierno" };
+const PARTICLES = { primavera:["🌸","🌼","🍃"], verano:["☀️","🌻","✨"], otono:["🍂","🍁","🌰"], invierno:["❄️","🤍","✦"] };
+let season = "primavera", activeSec = null;
+
+/* ================= CASA 3D ================= */
+function face(cls, w, h, transform, html){
+  const d = document.createElement("div");
+  d.className = "face " + cls;
+  d.style.width = w + "px";
+  d.style.height = h + "px";
+  d.style.transform = `translate(-50%,-50%) ${transform}`;
+  if (html) d.innerHTML = html;
+  return d;
+}
+
+function buildRoom(r, i){
+  const H = r.open ? 16 : WALL_H;
+  const el = document.createElement("div");
+  el.className = "room";
+  el.dataset.sec = r.sec;
+  el.style.left = r.x + "px"; el.style.top = r.y + "px";
+  el.style.width = r.w + "px"; el.style.height = r.h + "px";
+  el.style.setProperty("--z", (H/2) + "px");
+  el.style.setProperty("--d", (0.12 * i + 0.2) + "s");
+  if (r.bath) el.style.setProperty("--room-bg", "#E3EEF0");
+  if (r.open) el.style.setProperty("--room-bg", "#E7EEDC");
+
+  el.appendChild(face("f-floor", r.w, r.h, `translateZ(${-H/2}px)`, `<b>${r.label}</b>`));
+  el.appendChild(face("wall",      r.w, H, `rotateX(90deg)  translateZ(${r.h/2}px)`));
+  el.appendChild(face("wall dark", r.w, H, `rotateX(-90deg) translateZ(${r.h/2}px)`));
+  el.appendChild(face("wall",      H, r.h, `rotateY(90deg)  translateZ(${r.w/2}px)`));
+  el.appendChild(face("wall dark", H, r.h, `rotateY(-90deg) translateZ(${r.w/2}px)`));
+
+  el.addEventListener("click", () => {
+    const t = document.getElementById("sec-" + r.sec);
+    if (t) t.scrollIntoView({ behavior:"smooth", block:"center" });
+  });
+  return el;
+}
+
+const floor0 = document.getElementById("floor0"), floor1 = document.getElementById("floor1");
+floor0.style.transform = "translateZ(0px)";
+floor1.style.transform = `translateZ(${WALL_H + LEVEL_GAP}px)`;
+PLAN.forEach((r,i) => (r.level === 0 ? floor0 : floor1).appendChild(buildRoom(r,i)));
+
+const roof = document.getElementById("roof");
+roof.style.setProperty("--rz", ((WALL_H + LEVEL_GAP) + WALL_H) + "px");
+const sA = document.getElementById("slopeA"), sB = document.getElementById("slopeB");
+sA.style.transformOrigin = "bottom center"; sA.style.transform = "translate(-50%,-100%) rotateX(-31deg)";
+sB.style.transformOrigin = "top center";    sB.style.transform = "translate(-50%,0) rotateX(31deg)";
+
+/* ================= CONTROLES ================= */
+const house = document.getElementById("house"), stage = document.getElementById("stage");
+let spin = -28, tilt = 58, dragging = false, lastX = 0, lastY = 0, auto = false;
+
+function applyView(){
+  house.style.setProperty("--spin", spin + "deg");
+  house.style.setProperty("--tilt", tilt + "deg");
+  document.querySelectorAll(".f-floor b").forEach(b => b.style.setProperty("--text-fix", (-spin) + "deg"));
+}
+applyView();
+
+stage.addEventListener("pointerdown", e => {
+  dragging = true; lastX = e.clientX; lastY = e.clientY;
+  house.classList.add("dragging"); stage.setPointerCapture(e.pointerId);
+});
+stage.addEventListener("pointermove", e => {
+  if (!dragging) return;
+  spin += (e.clientX - lastX) * .45;
+  tilt = Math.min(84, Math.max(16, tilt - (e.clientY - lastY) * .3));
+  lastX = e.clientX; lastY = e.clientY;
+  applyView();
+});
+["pointerup","pointercancel","pointerleave"].forEach(ev =>
+  stage.addEventListener(ev, () => { dragging = false; house.classList.remove("dragging"); }));
+
+document.getElementById("btnLeft").onclick  = () => { spin -= 45; applyView(); };
+document.getElementById("btnRight").onclick = () => { spin += 45; applyView(); };
+
+const btnAuto = document.getElementById("btnAuto");
+btnAuto.onclick = () => { auto = !auto; btnAuto.classList.toggle("active", auto); };
+setInterval(() => { if (auto && !dragging) { spin += .25; applyView(); } }, 40);
+
+const btnRoof = document.getElementById("btnRoof");
+btnRoof.onclick = () => { roof.classList.toggle("on"); btnRoof.classList.toggle("active"); };
+[["btnPb", floor0], ["btnPa", floor1]].forEach(([id, el]) => {
+  const b = document.getElementById(id);
+  b.onclick = () => { el.classList.toggle("dim"); b.classList.toggle("active"); };
+});
+
+/* ================= PARTÍCULAS ================= */
+const sky = document.getElementById("sky");
+function renderParticles(){
+  sky.innerHTML = "";
+  const set = PARTICLES[season];
+  for (let i = 0; i < 18; i++){
+    const s = document.createElement("span");
+    s.className = "pt";
+    s.textContent = set[i % set.length];
+    s.style.left = Math.random() * 100 + "%";
+    s.style.fontSize = (12 + Math.random() * 14) + "px";
+    s.style.setProperty("--dx", (Math.random() * 120 - 60) + "px");
+    s.style.animationDuration = (7 + Math.random() * 9) + "s";
+    s.style.animationDelay = (-Math.random() * 12) + "s";
+    sky.appendChild(s);
+  }
+}
+
+/* ================= PRODUCTOS ================= */
+const casa = document.getElementById("casa"), rooms = document.getElementById("rooms");
+
+const cardIO = new IntersectionObserver(es => {
+  es.forEach(e => { if (e.isIntersecting){ e.target.classList.add("in"); cardIO.unobserve(e.target); } });
+}, { rootMargin:"0px 0px -8% 0px" });
+
+const secIO = new IntersectionObserver(es => {
+  es.forEach(e => { if (e.isIntersecting){ activeSec = e.target.id.replace("sec-",""); highlight(activeSec); } });
+}, { rootMargin:"-35% 0px -45% 0px" });
+
+function highlight(sec){
+  document.querySelectorAll(".room").forEach(r => r.classList.toggle("hot", r.dataset.sec === sec));
+  document.querySelectorAll(".block").forEach(b => b.classList.toggle("active", b.id === "sec-" + sec));
+}
+
+function renderSections(){
+  rooms.innerHTML = "";
+  Object.entries(SECTIONS).forEach(([id, sec]) => {
+    const items = sec.items.filter(p => p.s.includes("todas") || p.s.includes(season));
+    const art = document.createElement("article");
+    art.className = "block"; art.id = "sec-" + id;
+    art.innerHTML = `
+      <h3>${sec.label}</h3>
+      <p class="note">${SEASONS[season]} · ${items.length} productos</p>
+      <div class="grid">
+        ${items.length ? items.map((p, i) => `
+          <div class="card" style="transition-delay:${i*60}ms">
+            <div class="emoji">${p.e}</div>
+            <h4>${p.n}</h4>
+            <div class="price">$${p.p.toFixed(2)}</div>
+            <a class="add" target="_blank" rel="noopener"
+               href="https://wa.me/${WHATSAPP}?text=${encodeURIComponent("Hola allhogar, me interesa: " + p.n)}">Pedir</a>
+          </div>`).join("")
+        : `<p class="empty">Sin productos en esta temporada. ¡Pronto más!</p>`}
+      </div>`;
+    rooms.appendChild(art);
+  });
+  document.querySelectorAll(".block").forEach(b => secIO.observe(b));
+  document.querySelectorAll(".card").forEach(c => cardIO.observe(c));
+  highlight(activeSec);
+}
+
+document.querySelectorAll("#seasons .chip").forEach(btn => {
+  btn.onclick = () => {
+    season = btn.dataset.season;
+    casa.dataset.season = season;
+    document.querySelectorAll("#seasons .chip").forEach(b => b.classList.toggle("active", b === btn));
+    // pequeño giro al cambiar de estación
+    spin += 20; applyView();
+    renderParticles();
+    renderSections();
+  };
+});
+
+renderParticles();
+renderSections();
+</script>
+</body>
+</html>
