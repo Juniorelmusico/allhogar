@@ -38,6 +38,12 @@
     --olivo-osc:#9DB39A; --terracota-osc:#DDA07A; --mostaza-claro:#C79A49;
     --sombra:0 10px 30px rgba(0,0,0,.45); --sombra-fuerte:0 18px 48px rgba(0,0,0,.55);
   }
+  /* tema de temporada aplicado a toda la página */
+  body[data-tema="primavera"]{--crema:#F3F9EE;--crema-osc:#E1EEDA;--olivo-osc:#4F7A46}
+  body[data-tema="verano"]{--crema:#FFF8E6;--crema-osc:#F4E7C6;--terracota:#D98A4A}
+  body[data-tema="otono"]{--crema:#FBEEE1;--crema-osc:#EEDCC5;--olivo-osc:#8C5E3C;--terracota:#B5633A}
+  body[data-tema="invierno"]{--crema:#F1F5F7;--crema-osc:#DCE7EB;--olivo-osc:#1F5E3D;--olivo:#2F7A4F;
+                             --terracota:#B23A3A;--terracota-osc:#8E2B2B;--mostaza:#D9B44A;--mostaza-claro:#F0DFA8}
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);background:var(--crema);
@@ -130,7 +136,7 @@
   .spinner{width:38px;height:38px;border:4px solid var(--crema-osc);border-top-color:var(--terracota);border-radius:50%;
            margin:0 auto 12px;animation:spin 1s linear infinite}
   @keyframes spin{to{transform:rotate(360deg)}}
-  .hint{pointer-events:none;position:absolute;left:50%;bottom:78px;transform:translateX(-50%);background:rgba(59,48,39,.80);color:#fff;
+  .hint{pointer-events:none;position:absolute;left:50%;bottom:78px;transform:translateX(-50%);background:rgba(45,37,30,.93);color:#fff;box-shadow:0 6px 18px rgba(0,0,0,.25);
         padding:8px 16px;border-radius:999px;font-size:.78rem;font-weight:600;white-space:nowrap;
         animation:fadeOut 1s ease-in 6s forwards}
   @keyframes fadeOut{to{opacity:0;visibility:hidden}}
@@ -178,20 +184,40 @@
     .stat{min-width:0;padding:8px 11px;flex:1}
     .stat .val{font-size:1rem}
     .stat .sub{display:none}
-    .panel{position:absolute;top:76px;right:11px;left:11px;bottom:auto;width:auto;max-width:none;z-index:6;
-           transform:translateY(-12px)}
+    .panel{position:absolute;bottom:92px;right:11px;left:11px;top:auto;width:auto;max-width:none;z-index:6;
+           transform:translateY(12px)}
     .panel.show{transform:none}
-    .panel-body{max-height:30vh}
+    .panel-body{max-height:27vh}
     .track{display:none}
     .hud-bottom{justify-content:center}
-    .toolbar{align-items:center;width:100%}
-    .row{justify-content:center}
+    .toolbar{align-items:stretch;width:100%;gap:6px}
+    .row{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;width:100%;
+         scrollbar-width:none;-ms-overflow-style:none;padding:2px 0;scroll-snap-type:x proximity}
+    .row::-webkit-scrollbar{display:none}
+    .chip{flex:0 0 auto;scroll-snap-align:start}
+    .hint{top:66px;bottom:auto}
     .topbar .pill{display:none}
-    .hint{bottom:120px}
   }
-  @media(max-width:480px){
+  @media(max-width:620px){
     .chip{padding:7px 11px;font-size:.76rem}
     .brand-name{font-size:1.1rem}
+    .hint{white-space:normal;max-width:82vw;text-align:center;line-height:1.3}
+    .catalog{padding:32px 4% 46px}
+    .block{padding:15px;border-left-width:6px;border-radius:18px}
+    .grid{grid-template-columns:repeat(auto-fill,minmax(126px,1fr));gap:9px}
+    .card{padding:12px;border-radius:14px}
+    .card h4{font-size:.84rem;line-height:1.25}
+    .card .emoji{font-size:1.8rem}
+    .hero{padding:38px 6% 10px}
+    .hero-logo{width:76px;height:76px;border-radius:20px}
+    .stat{padding:7px 9px}
+    .stat .lbl{font-size:.62rem}
+    .stat .val{font-size:.95rem}
+    .topbar{padding:8px 14px}
+    .topbar .wa{padding:8px 14px;font-size:.82rem}
+    .cta{padding:54px 6%}
+    .envio{padding:18px 5%;font-size:.88rem}
+    .foot-logo{width:58px;height:58px}
   }
   @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style>
@@ -260,7 +286,7 @@
           <button class="chip active" data-season="primavera">🌸 Primavera</button>
           <button class="chip" data-season="verano">☀️ Verano</button>
           <button class="chip" data-season="otono">🍂 Otoño</button>
-          <button class="chip" data-season="invierno">❄️ Invierno</button>
+          <button class="chip" data-season="invierno">🎄 Navidad</button>
         </div>
         <div class="row">
           <button class="chip active" id="bPb">🪑 Planta baja</button>
@@ -268,13 +294,14 @@
           <button class="chip" id="bBoth">🏠 Casa completa</button>
           <button class="chip" id="bRoof">⛺ Techo</button>
           <button class="chip" id="bAuto">🔄 Girar</button>
+          <button class="chip active" id="bTema">🎨 Tema</button>
           <button class="chip sq" id="bReset">⟲</button>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="hint" id="hint">Toca una etiqueta o un cuarto para ver sus productos</div>
+  <div class="hint" id="hint">Toca una etiqueta para ver sus productos</div>
 </div>
 
 <!-- ============ CONTENIDO ============ -->
@@ -327,13 +354,16 @@ const SECTIONS = {
     {e:"🖼️", n:"Cuadros decorativos", p:22.00, s:["todas"]},
     {e:"🌿", n:"Planta artificial",   p:25.00, s:["primavera"]},
     {e:"🧊", n:"Ventilador de torre", p:48.00, s:["verano"]},
-    {e:"🕯️", n:"Velas aromáticas",    p:9.00,  s:["otono","invierno"]}
+    {e:"🕯️", n:"Velas aromáticas",    p:9.00,  s:["otono","invierno"]},
+    {e:"🎄", n:"Árbol de navidad 1.80 m", p:45.00, s:["invierno"]},
+    {e:"🎁", n:"Set de adornos (24 pzs)", p:17.00, s:["invierno"]}
   ]},
   comedor:{ label:"Comedor", tag:"Planta baja", items:[
     {e:"🍽️", n:"Vajilla de 12 piezas",   p:49.00, s:["todas"]},
     {e:"🧺", n:"Mantel antimanchas",     p:13.00, s:["todas"]},
     {e:"🥤", n:"Set de vasos de vidrio", p:16.00, s:["verano"]},
-    {e:"🍲", n:"Olla para sopas",        p:34.00, s:["otono","invierno"]}
+    {e:"🍲", n:"Olla para sopas",        p:34.00, s:["otono","invierno"]},
+    {e:"🎅", n:"Mantel navideño",        p:16.00, s:["invierno"]}
   ]},
   cocina: { label:"Cocina", tag:"Planta baja", items:[
     {e:"🔪", n:"Set de cuchillos",     p:27.00, s:["todas"]},
@@ -396,18 +426,21 @@ const SECTIONS = {
     {e:"🪴", n:"Macetas de cerámica",   p:13.00, s:["primavera"]},
     {e:"⛱️", n:"Sombrilla de jardín",   p:58.00, s:["verano"]},
     {e:"🍂", n:"Set de jardinería",     p:16.00, s:["otono"]},
-    {e:"❄️", n:"Cubierta para muebles", p:22.00, s:["invierno"]}
+    {e:"❄️", n:"Cubierta para muebles", p:22.00, s:["invierno"]},
+    {e:"🎇", n:"Luces navideñas 10 m",  p:14.00, s:["invierno"]},
+    {e:"🎀", n:"Corona para la puerta", p:19.00, s:["invierno"]}
   ]},
   mascota:{ label:"Zona de mascota", tag:"Exterior", items:[
     {e:"🐶", n:"Cama para perro",       p:26.00, s:["todas"]},
     {e:"🐱", n:"Rascador para gato",    p:33.00, s:["todas"]},
     {e:"🦴", n:"Juguetes resistentes",  p:9.00,  s:["todas"]},
     {e:"🧊", n:"Bebedero refrigerante", p:24.00, s:["verano"]},
-    {e:"🧥", n:"Abrigo para mascota",   p:15.00, s:["invierno"]}
+    {e:"🧥", n:"Abrigo para mascota",   p:15.00, s:["invierno"]},
+    {e:"🎅", n:"Gorro navideño",        p:8.00,  s:["invierno"]}
   ]}
 };
 
-const SEASON_NAMES = { primavera:"Primavera", verano:"Verano", otono:"Otoño", invierno:"Invierno" };
+const SEASON_NAMES = { primavera:"Primavera", verano:"Verano", otono:"Otoño", invierno:"Navidad" };
 
 /* paletas por temporada */
 const SEASON_THEME = {
@@ -417,8 +450,8 @@ const SEASON_THEME = {
               sun:0xFFE9A8, sunInt:2.5, amb:0xDCE8F0, ground:0xEADFBF, acc:"#F2D79A" },
   otono:    { sky:"#F8E7D4", fog:0xF8E7D4, grass:0xA89A5E, tree:0xC2703F, blossom:0xA8603C,
               sun:0xFFD9A0, sunInt:1.8, amb:0xE8D8C8, ground:0xE4D2B4, acc:"#E0A86F" },
-  invierno: { sky:"#E9F1F5", fog:0xE9F1F5, grass:0xD9E4E4, tree:0x6E8A5E, blossom:0xFFFFFF,
-              sun:0xE8F0FF, sunInt:1.4, amb:0xCFDEE8, ground:0xE8EEF0, acc:"#C6D6DC" }
+  invierno: { sky:"#E7EFF5", fog:0xE7EFF5, grass:0xEDF3F5, tree:0x2F6B47, blossom:0xFFFFFF,
+              sun:0xEAF2FF, sunInt:1.6, amb:0xCFDEE8, ground:0xF2F6F8, acc:"#C6D6DC" }
 };
 
 /* ==================== PLANO DE LA CASA ====================
@@ -455,7 +488,8 @@ let renderer, scene, camera, controls, raycaster, pointer;
 let houseGroup, floorGroups = {0:null, 1:null}, roofGroup;
 let sunLight, ambLight, hemiLight;
 let seasonMats = { grass:null, tree:[], blossom:[], ground:null };
-let snowObjects = [], summerObjects = [], springObjects = [], autumnObjects = [];
+let summerObjects = [], springObjects = [], winterObjects = [];
+let snow = null;
 let clickTargets = [], roomRegistry = {};
 let season = "primavera";
 let selected = null, hovered = null;
@@ -739,6 +773,40 @@ function furnish(r, g, cx, cz, y, w, d){
       // camino de piedra
       for (let i = 0; i < 5; i++)
         box(.9, .06, .6, mat(0xD9CDB4), cx + 3.4, y + .03, cz - 2.6 + i * 1.1, g);
+
+      // ---- escena de Navidad (solo en invierno) ----
+      const nav = new THREE.Group();
+      const tx = cx - 1.9, tz = cz + 2.1;
+      cyl(.16, .18, .4, mat(0x6B4A2F), tx, y + .2, tz, nav);
+      const pino = mat(0x1F5E3D);
+      [[1.25, .9, .55], [1.0, .75, 1.3], [.72, .62, 1.95]].forEach(([r, h, yy]) => {
+        const c = new THREE.Mesh(new THREE.ConeGeometry(r, h, 12), pino);
+        c.position.set(tx, y + yy, tz); c.castShadow = true; c.receiveShadow = true; nav.add(c);
+      });
+      const estrella = new THREE.Mesh(new THREE.OctahedronGeometry(.2),
+                        new THREE.MeshBasicMaterial({ color:0xFFD75E }));
+      estrella.position.set(tx, y + 2.42, tz); nav.add(estrella);
+      // esferas del árbol
+      [[.55,.75,0xB23A3A],[-.5,1.0,0xD9B44A],[.35,1.45,0x6FA8DC],[-.3,1.75,0xB23A3A],[.2,2.05,0xD9B44A]]
+        .forEach(([ox, yy, col]) => sphere(.11, new THREE.MeshBasicMaterial({ color:col }), tx + ox, y + yy, tz + .35, nav));
+      // regalos
+      [[-.9,.0,0xB23A3A,.45],[-.55,.55,0x2F7A4F,.38],[.45,-.75,0xD9B44A,.34]].forEach(([ox,oz,col,sz]) => {
+        box(sz, sz, sz, mat(col), tx + ox, y + sz/2, tz + oz, nav);
+        box(sz + .03, .05, .09, mat(0xF6F2E8), tx + ox, y + sz/2 + sz/2 - .02, tz + oz, nav);
+      });
+      // muñeco de nieve
+      const nx = cx - 2.6, nz = cz - 2.1, nieve = mat(0xFBFDFF);
+      sphere(.5, nieve, nx, y + .45, nz, nav);
+      sphere(.36, nieve, nx, y + 1.1, nz, nav);
+      sphere(.26, nieve, nx, y + 1.58, nz, nav);
+      cyl(.33, .33, .06, mat(0x3B3027), nx, y + 1.78, nz, nav);
+      cyl(.2, .2, .3, mat(0x3B3027), nx, y + 1.93, nz, nav);
+      const nariz = new THREE.Mesh(new THREE.ConeGeometry(.06, .25, 8), mat(0xE07A2F));
+      nariz.position.set(nx, y + 1.58, nz + .28); nariz.rotation.x = Math.PI / 2; nav.add(nariz);
+      sphere(.045, mat(0x3B3027), nx - .1, y + 1.65, nz + .23, nav);
+      sphere(.045, mat(0x3B3027), nx + .1, y + 1.65, nz + .23, nav);
+
+      g.add(nav); winterObjects.push(nav);
       break;
     }
     case "mascota": {
@@ -778,6 +846,17 @@ function buildExterior(grassMat){
     box(.16, .8, .16, post, px(16.2), 0.4, pz(z), g);
   }
   box(16.4, .12, .12, post, px(8), 0.72, pz(12.2), g);
+  // guirnalda de luces navideñas sobre el cerco
+  const luces = new THREE.Group();
+  const colores = [0xB23A3A, 0xD9B44A, 0x2F7A4F, 0x6FA8DC];
+  for (let i = 0; i <= 32; i++){
+    const t = i / 32;
+    const lx = px(t * 16);
+    const ly = 0.78 - Math.sin(t * Math.PI * 8) * 0.10 + 0.04;
+    const m = sphere(.09, new THREE.MeshBasicMaterial({ color: colores[i % 4] }), lx, ly, pz(12.2), luces);
+    m.castShadow = false;
+  }
+  g.add(luces); winterObjects.push(luces);
   // farolas
   [[1.2, 9.5], [14.8, 9.5]].forEach(([x, z]) => {
     cyl(.09, .11, 1.9, mat(0x6B6258), px(x), .95, pz(z), g);
@@ -810,9 +889,46 @@ function buildRoof(){
   // chimenea
   box(.7, 1.1, .7, mat(0xC57A52), px(13), h + 1.5, pz(1.6), roofGroup);
 
+  // nieve sobre el techo
+  const nieveTecho = new THREE.Group();
+  const na = new THREE.Mesh(new THREE.BoxGeometry(16.7, .12, 3.6), mat(0xFBFDFF));
+  na.position.set(px(8), h + 1.0, pz(1.45)); na.rotation.x = -0.55; na.receiveShadow = true;
+  const nb = new THREE.Mesh(new THREE.BoxGeometry(16.7, .12, 3.6), mat(0xFBFDFF));
+  nb.position.set(px(8), h + 1.0, pz(4.55)); nb.rotation.x = 0.55; nb.receiveShadow = true;
+  nieveTecho.add(na, nb);
+  roofGroup.add(nieveTecho);
+  winterObjects.push(nieveTecho);
+
   roofGroup.visible = false;
   houseGroup.add(roofGroup);
   seasonMats.roof = roofMat;
+}
+
+function buildSnow(){
+  const N = 600, pos = new Float32Array(N * 3);
+  for (let i = 0; i < N; i++){
+    pos[i*3]   = (Math.random() - 0.5) * 34;
+    pos[i*3+1] = Math.random() * 16;
+    pos[i*3+2] = (Math.random() - 0.5) * 34;
+  }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+  snow = new THREE.Points(geo, new THREE.PointsMaterial({
+    color: 0xFFFFFF, size: 0.17, transparent: true, opacity: 0.92, depthWrite: false
+  }));
+  snow.visible = false;
+  scene.add(snow);
+}
+
+function animateSnow(){
+  if (!snow || !snow.visible) return;
+  const a = snow.geometry.attributes.position;
+  for (let i = 0; i < a.count; i++){
+    let y = a.getY(i) - 0.028;
+    if (y < -0.5){ y = 15; a.setX(i, (Math.random() - 0.5) * 34); a.setZ(i, (Math.random() - 0.5) * 34); }
+    a.setY(i, y);
+  }
+  a.needsUpdate = true;
 }
 
 /* ==================== TEMPORADAS ==================== */
@@ -835,6 +951,9 @@ function applySeason(s){
   // objetos propios de cada temporada
   summerObjects.forEach(o => o.visible = (s === "verano"));
   springObjects.forEach(o => o.visible = (s === "primavera" || s === "verano"));
+  winterObjects.forEach(o => o.visible = (s === "invierno"));
+  if (snow) snow.visible = (s === "invierno");
+  if (temaOn) document.body.dataset.tema = s;
 
   // UI
   document.querySelectorAll("#seasonRow .chip").forEach(b =>
@@ -909,16 +1028,32 @@ function selectRoom(sec){
   selected = sec;
   setTint(sec, true);
   openPanel(sec);
-  // acercar la cámara al espacio elegido
-  const g = roomRegistry[sec][0];
-  const bb = new THREE.Box3().setFromObject(g);
-  const c = bb.getCenter(new THREE.Vector3());
-  animateTarget(c);
+  // en pantallas anchas la cámara vuela al espacio; en celular se queda quieta
+  if (viewW >= 760){
+    const g = roomRegistry[sec][0];
+    const bb = new THREE.Box3().setFromObject(g);
+    animateTarget(bb.getCenter(new THREE.Vector3()));
+  }
 }
 
 let targetAnim = null;
 function animateTarget(dest){
   targetAnim = { from: controls.target.clone(), to: dest, t: 0 };
+}
+
+let viewShift = 0;
+function applyViewShift(){
+  if (viewShift > 2) camera.setViewOffset(viewW, viewH + viewShift, 0, viewShift, viewW, viewH);
+  else camera.clearViewOffset();
+}
+function updateViewShift(){
+  const el = document.getElementById("panel");
+  const want = (viewW < 760 && el.classList.contains("show"))
+    ? Math.min(viewH * 0.5, el.getBoundingClientRect().height + 30)
+    : (viewW < 760 ? viewH * 0.10 : 0);
+  if (Math.abs(want - viewShift) < 2) return;
+  viewShift = want;
+  applyViewShift();
 }
 
 function openPanel(sec){
@@ -938,11 +1073,13 @@ function openPanel(sec){
       </div>`).join("")
     : `<p style="padding:14px;color:var(--ink-suave);font-style:italic">Sin productos en esta temporada.</p>`;
   document.getElementById("panel").classList.add("show");
+  requestAnimationFrame(updateViewShift);
 }
 function closePanel(){
   if (selected) setTint(selected, false);
   selected = null;
   document.getElementById("panel").classList.remove("show");
+  requestAnimationFrame(updateViewShift);
 }
 document.getElementById("pClose").onclick = closePanel;
 
@@ -992,11 +1129,22 @@ bRoof.onclick = () => {
   bRoof.classList.toggle("active", roofGroup.visible);
 };
 
+let temaOn = true;
+const bTema = document.getElementById("bTema");
+bTema.onclick = () => {
+  temaOn = !temaOn;
+  bTema.classList.toggle("active", temaOn);
+  if (temaOn) document.body.dataset.tema = season;
+  else delete document.body.dataset.tema;
+};
+
 const bAuto = document.getElementById("bAuto");
 bAuto.onclick = () => { controls.autoRotate = !controls.autoRotate; bAuto.classList.toggle("active"); };
 
 document.getElementById("bReset").onclick = () => {
   camera.position.set(19, 16, 19);
+  controls.target.set(0, 0.8, 0);
+  fitCamera(true);
   closePanel();
   setFloorMode("pb");
 };
@@ -1041,8 +1189,11 @@ function updatePins(){
     _v.set(p.anchor.x, p.anchor.y + yOff, p.anchor.z).project(camera);
     if (_v.z > 1){ p.el.style.display = "none"; continue; }
     p.el.style.display = "";
-    const x = (_v.x * 0.5 + 0.5) * viewW;
-    const y = (-_v.y * 0.5 + 0.5) * viewH;
+    let x = (_v.x * 0.5 + 0.5) * viewW;
+    let y = (-_v.y * 0.5 + 0.5) * viewH;
+    const mx = 30, my = 36;                       // que no se salgan del lienzo
+    x = Math.min(viewW - mx, Math.max(mx, x));
+    y = Math.min(viewH - 10, Math.max(my, y));
     p.el.style.transform = "translate(" + x.toFixed(1) + "px," + y.toFixed(1) + "px) translate(-50%,-100%)";
     p.el.classList.toggle("on", selected === p.r.sec);
   }
@@ -1085,12 +1236,26 @@ document.getElementById("waTop").href = waUrl;
 document.getElementById("waBottom").href = waUrl;
 
 /* ==================== LOOP ==================== */
+let lastFit = null;
+function fitCamera(force){
+  const aspect = viewW / viewH;
+  const bucket = aspect < 0.62 ? "xs" : aspect < 0.95 ? "s" : aspect < 1.5 ? "m" : "l";
+  if (!force && bucket === lastFit) return;      // no toques el zoom del usuario sin motivo
+  lastFit = bucket;
+  const dist = { xs:58, s:50, m:38, l:31 }[bucket];
+  const dir = camera.position.clone().sub(controls.target).normalize();
+  camera.position.copy(controls.target).add(dir.multiplyScalar(dist));
+}
+
 function resize(){
   const w = wrap.clientWidth, h = wrap.clientHeight;
   viewW = w; viewH = h;
   renderer.setSize(w, h, false);
   camera.aspect = w / h;
   camera.updateProjectionMatrix();
+  fitCamera(false);
+  viewShift = 0;
+  requestAnimationFrame(updateViewShift);
 }
 
 function animate(){
@@ -1102,6 +1267,7 @@ function animate(){
     if (targetAnim.t >= 1) targetAnim = null;
   }
   controls.update();
+  animateSnow();
   updatePins();
   renderer.render(scene, camera);
 }
@@ -1110,6 +1276,7 @@ function animate(){
 function start(){
   initThree();
   buildWorld();
+  buildSnow();
   buildPins();
   applySeason("primavera");
   setFloorMode("pb");
