@@ -202,6 +202,8 @@
   .pin .pdot{width:23px;height:23px;border-radius:50%;background:var(--crema);display:grid;place-items:center;font-size:.9rem}
   .pin:hover{background:var(--mostaza)}
   .pin.pin-bath{padding:4px}
+  .pin.pin-xmas{background:#1F5E3D;color:#fff;border-color:#1F5E3D}
+  .pin.pin-xmas .pdot{background:rgba(255,255,255,.18)}
   .pin.on{background:var(--olivo);color:#fff;border-color:var(--olivo)}
   .pin.on .pdot{background:rgba(255,255,255,.25)}
   @media(max-width:620px){ .pin .ptxt{display:none} .pin{padding:4px} }
@@ -316,7 +318,7 @@
     <img class="logo-img" src="data:image/jpeg;base64,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" alt="allhogar">
     <div class="brand-name">all<span>hogar</span></div>
   </div>
-  <div class="pill"><span class="dot"></span> <span id="pillTxt">Primavera · 12 espacios</span></div>
+  <div class="pill"><span class="dot"></span> <span id="pillTxt">Primavera</span></div>
   <div class="top-actions">
     <button class="cart-btn" id="cartBtn" aria-label="Abrir carrito">🛒 <span id="cartCount">0</span></button>
     <a class="wa" id="waTop" href="#" target="_blank" rel="noopener">Escríbenos</a>
@@ -339,7 +341,7 @@
   <div class="hud">
     <div class="hud-top">
       <div class="stats">
-        <div class="stat"><div class="lbl">Espacios</div><div class="val">12</div><div class="sub">toca uno en la casa</div></div>
+        <div class="stat"><div class="lbl">Espacios</div><div class="val" id="statEsp">15</div><div class="sub">toca uno en la casa</div></div>
         <div class="stat"><div class="lbl">Productos</div><div class="val" id="statProd">—</div><div class="sub" id="statSeason">esta temporada</div></div>
         <div class="stat"><div class="lbl">Entrega</div><div class="val">3-7 días</div><div class="sub">a todo el país</div></div>
       </div>
@@ -448,30 +450,37 @@ const WHATSAPP = window.ALLHOGAR_WHATSAPP;   // se configura arriba, en el <head
 
 const SECTIONS = {
   sala:{ label:"Sala", tag:"Planta baja", items:[
-    {e:"🌸", n:"Humidificador de ambiente floral", p:25.00, s:["todas"], ref:"151892", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/151892/img_6a2e5640105151.17148245_0.jpg"},
-    {e:"🪵", n:"Humidificador de madera", p:23.00, s:["todas"], ref:"152841", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/152841/img_6a2ee36d4c41d6.11215148_0.jpg"},
-    {e:"🌷", n:"Lámpara de tulipanes LED", p:17.25, s:["todas"], ref:"113729", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/113729/1759872973Screenshot_7375.png"},
-    {e:"🦟", n:"Cortina antimosquitos", p:15.00, s:["todas"], ref:"175289", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/175289/74049eb2-b38e-434f-b7f9-7393d48e7310.jpg"},
-    {e:"🌙", n:"Combo Noches Tranquilas: lámpara + cortina antimosquitos", p:27.99, s:["todas"], ref:"C3:113729+175289", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/113729/1759872973Screenshot_7375.png", was:32.25, combo:true},
+    {e:"🌸", n:"Humidificador de ambiente floral", p:25.00, s:["primavera", "verano"], ref:"151892", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/151892/img_6a2e5640105151.17148245_0.jpg"},
+    {e:"🪵", n:"Humidificador de madera", p:23.00, s:["otono", "invierno"], ref:"152841", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/152841/img_6a2ee36d4c41d6.11215148_0.jpg"},
+    {e:"❄️", n:"Enfriador y calentador de aire portátil", p:23.00, s:["verano", "otono"], ref:"95189", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/95189/17852167061778225199CALENTADOR_Y_ENFRIADOR_DE_AIRE_PORTATIL_95189.gif"},
+    {e:"🌀", n:"Ventilador robot flexible", p:30.00, s:["verano"], ref:"187218", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/187218/021ce6a0-3049-4839-943c-d9e9188c324e.jpg"},
+    {e:"🌷", n:"Lámpara de tulipanes LED", p:17.25, s:["primavera"], ref:"113729", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/113729/1759872973Screenshot_7375.png"},
+    {e:"🦟", n:"Cortina antimosquitos", p:15.00, s:["verano"], ref:"175289", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/175289/74049eb2-b38e-434f-b7f9-7393d48e7310.jpg"},
+    {e:"🌙", n:"Combo Noches Tranquilas: lámpara + cortina antimosquitos", p:27.99, s:["primavera", "verano"], ref:"C3:113729+175289", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/113729/1759872973Screenshot_7375.png", was:32.25, combo:true},
     {e:"🎄", n:"Tarro de 20 bombillos navideños", p:26.99, s:["invierno"], ref:"197595", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/197595/0a63e17a-f231-468e-a076-a779511b39bd.jpg"},
     {e:"🎅", n:"Adorno Papá Noel en chimenea", p:20.00, s:["invierno"], ref:"203285", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/203285/8fe5d853-be3f-42a7-bec4-e570d69b5d94.png"},
-    {e:"🎀", n:"Lazo grande navideño", p:29.00, s:["invierno"], ref:"187782", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/187782/d18102bb-78a0-46ec-be7d-42d20bddbeb2.jpg"},
-    {e:"🎄", n:"Kit Navideño: Papá Noel + lazo + luces", p:64.99, s:["invierno"], ref:"C1:203285+187782+180327", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/203285/8fe5d853-be3f-42a7-bec4-e570d69b5d94.png", was:73.00, combo:true}
+    {e:"🎗️", n:"Listón LED navideño", p:18.00, s:["invierno"], ref:"115776", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/115776/1761604853564426496_810086538424481_1536047958483523540_n.jpg"}
   ]},
   comedor:{ label:"Comedor", tag:"Planta baja", items:[
     {e:"🍴", n:"Juego de cubiertos", p:51.00, s:["todas"], ref:"23137", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/23137/17225370234978904142143663204.jpg"},
-    {e:"🌡️", n:"Termo con pantalla digital", p:20.00, s:["todas"], ref:"20428", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/20428/1720923928592108c0c5d864d22c138f212491b619.webp"}
+    {e:"🌡️", n:"Termo con pantalla digital", p:20.00, s:["otono", "invierno"], ref:"20428", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/20428/1720923928592108c0c5d864d22c138f212491b619.webp"}
   ]},
   cocina:{ label:"Cocina", tag:"Planta baja", items:[
     {e:"🫙", n:"Contenedor de granos y cereales", p:69.00, s:["todas"], ref:"31612", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/31612/1765829622AMC%20-%202036.png"},
     {e:"🍟", n:"Freidora de aire 6 litros", p:65.00, s:["todas"], ref:"87103", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/87103/1778106425FREIDORA_DE_AIRE_6_LITROS_ECONOMICA_87103.gif"},
     {e:"🔒", n:"Sellador de fundas portátil", p:19.99, s:["todas"], ref:"118767", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/118767/1770418128Imagen%20de%20portada%20novashop%20(2).png"},
-    {e:"🥚", n:"Hervidor eléctrico de huevos", p:30.00, s:["todas"], ref:"184976", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/184976/a76f2b99-bc41-447f-9f21-2b7c509799c4.png"},
-    {e:"🔥", n:"Cocina eléctrica 2 hornillas", p:29.99, s:["todas"], ref:"99793", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/99793/1748449981Hornilla.jpg"}
+    {e:"🔥", n:"Cocina eléctrica 2 hornillas", p:29.99, s:["todas"], ref:"99793", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/99793/1748449981Hornilla.jpg"},
+    {e:"🥚", n:"Hervidor eléctrico de huevos", p:30.00, s:["otono", "invierno"], ref:"184976", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/184976/a76f2b99-bc41-447f-9f21-2b7c509799c4.png"}
   ]},
   banoSocial:{ label:"Baño social", tag:"Planta baja · visitas", items:[
     {e:"🧼", n:"Dispensador de jabón con cepillo", p:20.00, s:["todas"], ref:"84947", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/84947/1779500451DISPENSADOR_DE_JABÓN_CON_CEPILLO_84947.gif"},
     {e:"🧴", n:"Dispensador automático de jabón", p:30.00, s:["todas"], ref:"161183", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/161183/17836282765062360691058085603.jpg"}
+  ]},
+  garaje:{ label:"Garaje", tag:"Planta baja", items:[
+    {e:"🧹", n:"Aspiradora eléctrica 3 en 1", p:35.00, s:["todas"], ref:"73285", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/73285/1778105343ASPIRADORA_ELECTRICA_3_EN_1_73285.gif"},
+    {e:"📷", n:"Cámara de retroceso para auto", p:26.25, s:["todas"], ref:"121500", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/121500/17671125364.jpg"},
+    {e:"🔧", n:"Escáner de auto Bluetooth", p:26.00, s:["todas"], ref:"8848", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/8848/1756141062SCANNER%205.webp"},
+    {e:"📱", n:"Soporte de celular para auto", p:38.00, s:["todas"], ref:"100354", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/100354/1748620447WhatsApp%20Image%202025-05-30%20at%2010.49.17%20AM%20(1).jpeg"}
   ]},
   nino:{ label:"Cuarto de niño", tag:"Planta alta", items:[
     {e:"🦖", n:"Pista de dinosaurios 40 piezas", p:45.00, s:["todas"], ref:"56938", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/56938/1730738972WhatsApp%20Image%202024-11-04%20at%2011.31.54%20(19).jpeg"},
@@ -484,29 +493,36 @@ const SECTIONS = {
     {e:"🛁", n:"Combo Baño Ordenado: organizador + luz para inodoro", p:33.99, s:["todas"], ref:"C4:78303+113007", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/78303/1760835037photo_5170322755692899586_x.jpg", was:38.90, combo:true}
   ]},
   nina:{ label:"Cuarto de niña", tag:"Planta alta", items:[
-    {e:"🧸", n:"Peluche capibara", p:21.00, s:["todas"], ref:"202048", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/202048/img_6ad4fdc42a1730.16354957_0.jpg"},
-    {e:"🐰", n:"Lonchera conejo con cubiertos", p:19.00, s:["todas"], ref:"183129", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/183129/img_6a9ce462ef7e06.42217857_0.jpg"},
+    {e:"🦋", n:"Alas de mariposa con luces", p:32.99, s:["primavera", "verano"], ref:"77138", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/77138/17392211271.jpg"},
+    {e:"🧸", n:"Peluche capibara", p:21.00, s:["otono", "invierno"], ref:"202048", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/202048/img_6ad4fdc42a1730.16354957_0.jpg"},
+    {e:"🐰", n:"Lonchera conejo con cubiertos", p:19.00, s:["primavera", "verano"], ref:"183129", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/183129/img_6a9ce462ef7e06.42217857_0.jpg"},
     {e:"🪼", n:"Squishy antiestrés medusa", p:18.00, s:["todas"], ref:"202079", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/202079/img_6ad4fe232bb024.85944113_0.jpg"}
   ]},
   banoNina:{ label:"Baño de la niña", tag:"Planta alta · infantil", items:[
     {e:"🗄️", n:"Organizador de baño 3 niveles", p:22.00, s:["todas"], ref:"78303", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/78303/1760835037photo_5170322755692899586_x.jpg"},
     {e:"🛁", n:"Combo Baño Ordenado: organizador + luz para inodoro", p:33.99, s:["todas"], ref:"C4:78303+113007", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/78303/1760835037photo_5170322755692899586_x.jpg", was:38.90, combo:true}
   ]},
-  papas:{ label:"Cuarto de papás", tag:"Planta alta", items:[
+  papas:{ label:"Cuarto matrimonial", tag:"Planta alta", items:[
     {e:"🚪", n:"Ropero de 3 cuerpos", p:45.00, s:["todas"], ref:"109135", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/109135/17556388440ddced34-848c-42e7-bc71-818fdb90a8f5.jpg"},
-    {e:"🛏️", n:"Almohada ortopédica ergonómica", p:30.00, s:["todas"], ref:"84914", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/84914/1779498817ALMOHADA_ORTOPEDICA_ERGONÓMICA_84914.gif"},
+    {e:"🛏️", n:"Almohada ortopédica ergonómica", p:30.00, s:["otono", "invierno"], ref:"84914", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/84914/1779498817ALMOHADA_ORTOPEDICA_ERGONÓMICA_84914.gif"},
     {e:"👟", n:"Perchero doble con zapatera", p:30.00, s:["todas"], ref:"142372", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/142372/17787754301778771294PERCHERO_DOBLE_CON_ZAPATERA_142372.gif"}
   ]},
-  banoPapas:{ label:"Baño de papás", tag:"Planta alta · principal", items:[
+  banoPapas:{ label:"Baño matrimonial", tag:"Planta alta", items:[
     {e:"🛁", n:"Dúo organizador de baño + esquinero", p:40.00, s:["todas"], ref:"146410", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/146410/2a04fc4e-7424-46d3-8a8f-e00c0c30d118.jpg"}
+  ]},
+  estudio:{ label:"Zona de estudio", tag:"Planta alta · niños", items:[
+    {e:"✏️", n:"Kit Escolar: pizarra + organizador + tablet", p:54.99, s:["todas"], ref:"C5:162070+125026+164149", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/162070/1783797405N1.jpg", was:65.00, combo:true},
+    {e:"📖", n:"Libro mágico de agua x4", p:34.00, s:["todas"], ref:"107484", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/107484/175399468611.jpeg"}
   ]},
   patio:{ label:"Patio", tag:"Exterior", items:[
     {e:"☀️", n:"Lámpara solar con sensor", p:45.00, s:["todas"], ref:"124396", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/124396/1778107289LAMPARA_SOLAR_DE_SENSOR_124396.gif"},
-    {e:"🌊", n:"Manguera expandible 30 m", p:20.00, s:["todas"], ref:"104210", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/104210/1778215197MANGUERA_EXPANDIBLE_30_METROS_104210.gif"},
-    {e:"🏕️", n:"Mesa plegable de camping", p:35.00, s:["todas"], ref:"172012", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/172012/37f3db0e-9df9-4a95-869a-c96222c5e6d0.jpg"},
+    {e:"🌊", n:"Manguera expandible 30 m", p:20.00, s:["primavera", "verano"], ref:"104210", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/104210/1778215197MANGUERA_EXPANDIBLE_30_METROS_104210.gif"},
     {e:"✨", n:"Kit 5 bastones de luces solares", p:24.00, s:["invierno"], ref:"180327", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/180327/3e3985d0-523b-4125-8477-a9bbebece5d5.gif"},
-    {e:"⛄", n:"Muñecos navideños inflables", p:50.00, s:["invierno"], ref:"53043", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/53043/17294767945080165284706364864.jpg"},
-    {e:"🎄", n:"Kit Navideño: Papá Noel + lazo + luces", p:64.99, s:["invierno"], ref:"C1:203285+187782+180327", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/203285/8fe5d853-be3f-42a7-bec4-e570d69b5d94.png", was:73.00, combo:true}
+    {e:"⛄", n:"Muñecos navideños inflables", p:50.00, s:["invierno"], ref:"53043", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/53043/17294767945080165284706364864.jpg"}
+  ]},
+  bbq:{ label:"Zona BBQ", tag:"Exterior", items:[
+    {e:"🍖", n:"Combo Parrillada: parrilla plegable + mesa", p:49.99, s:["todas"], ref:"C6:118009+172012", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/118009/2ec093d1-eae2-4786-931a-24a2aee0395e.jpg", was:58.60, combo:true},
+    {e:"🏕️", n:"Mesa plegable de camping", p:35.00, s:["todas"], ref:"172012", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/172012/37f3db0e-9df9-4a95-869a-c96222c5e6d0.jpg"}
   ]},
   mascota:{ label:"Zona de mascota", tag:"Exterior", items:[
     {e:"🎒", n:"Mochila de transporte para mascotas", p:42.00, s:["todas"], ref:"73371", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/73371/1778217174MOCHILA_DE_TRANSPORTE_PARA_MASCOTAS_73371.gif"},
@@ -514,6 +530,15 @@ const SECTIONS = {
     {e:"🐾", n:"Combo Mascota Feliz: rascador + cepillo de vapor", p:29.99, s:["todas"], ref:"C2:187738+115656", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/187738/f6594989-2853-43b8-aac8-bf88d7a38c1e.png", was:34.90, combo:true},
     {e:"💨", n:"Cepillo de vapor 3 en 1", p:19.90, s:["todas"], ref:"115656", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/115656/1761436820cepillo-vapor-1-ezgif.com-optiwebp.webp"},
     {e:"🐱", n:"Rascador para mascotas", p:15.00, s:["todas"], ref:"187738", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/187738/f6594989-2853-43b8-aac8-bf88d7a38c1e.png"}
+  ]},
+  navidad:{ label:"Árbol de Navidad", tag:"Temporada navideña", items:[
+    {e:"🎄", n:"Kit Navideño: Papá Noel + lazo + luces", p:64.99, s:["invierno"], ref:"C1:203285+187782+180327", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/203285/8fe5d853-be3f-42a7-bec4-e570d69b5d94.png", was:73.00, combo:true},
+    {e:"🎄", n:"Tarro de 20 bombillos navideños", p:26.99, s:["invierno"], ref:"197595", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/197595/0a63e17a-f231-468e-a076-a779511b39bd.jpg"},
+    {e:"🎀", n:"Lazo grande navideño", p:29.00, s:["invierno"], ref:"187782", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/187782/d18102bb-78a0-46ec-be7d-42d20bddbeb2.jpg"},
+    {e:"🎅", n:"Adorno Papá Noel en chimenea", p:20.00, s:["invierno"], ref:"203285", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/203285/8fe5d853-be3f-42a7-bec4-e570d69b5d94.png"},
+    {e:"🎗️", n:"Listón LED navideño", p:18.00, s:["invierno"], ref:"115776", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/115776/1761604853564426496_810086538424481_1536047958483523540_n.jpg"},
+    {e:"✨", n:"Kit 5 bastones de luces solares", p:24.00, s:["invierno"], ref:"180327", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/180327/3e3985d0-523b-4125-8477-a9bbebece5d5.gif"},
+    {e:"⛄", n:"Muñecos navideños inflables", p:50.00, s:["invierno"], ref:"53043", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/53043/17294767945080165284706364864.jpg"}
   ]}
 };
 const SEASON_NAMES = { primavera:"Primavera", verano:"Verano", otono:"Otoño", invierno:"Navidad" };
@@ -533,7 +558,7 @@ const SEASON_THEME = {
 /* ==================== PLANO DE LA CASA ====================
    Coordenadas del plano: X 0→16, Z 0→12. La casa ocupa Z 0→6,
    el exterior (patio y mascota) ocupa Z 6→12.                */
-const OFF_X = -8, OFF_Z = -6;        // para centrar la escena
+const OFF_X = -11, OFF_Z = -6;       // para centrar la escena (lote de 22 x 12)
 const SLAB  = 0.18;                  // grosor de losa
 const WALL_H = 1.35;                 // alto de muros (medio muro, vista casa de muñecas)
 const UP_Y  = 1.95;                  // altura de la planta alta
@@ -544,16 +569,20 @@ const ROOMS = [
   { sec:"comedor", lvl:0, x0:6,  z0:0,   x1:11, z1:6,  color:0xEFE6D2 },
   { sec:"cocina",  lvl:0, x0:11, z0:0,   x1:16, z1:3.5,color:0xEDE4CE },
   { sec:"banoSocial", lvl:0, x0:11, z0:3.5, x1:16, z1:6,  color:0xDDEAEC, bath:true },
+  { sec:"garaje",  lvl:0, x0:16, z0:0,   x1:22, z1:6,  color:0xC9C6BF },
   // --- exterior ---
-  { sec:"patio",   lvl:0, x0:0,  z0:6,   x1:11, z1:12, open:true },
-  { sec:"mascota", lvl:0, x0:11, z0:6,   x1:16, z1:12, open:true },
+  { sec:"patio",   lvl:0, x0:0,  z0:6,   x1:8,  z1:12, open:true },
+  { sec:"bbq",     lvl:0, x0:8,  z0:6,   x1:12.5, z1:12, open:true, floor:0xC9A27A },
+  { sec:"mascota", lvl:0, x0:12.5, z0:6, x1:16, z1:12, open:true },
+  { sec:"garaje",  lvl:0, x0:16, z0:6,   x1:22, z1:12, open:true, floor:0xB9B6AF, driveway:true },
   // --- planta alta ---
   { sec:"nino",    lvl:1, x0:0,  z0:0,   x1:5,  z1:4,  color:0xE6EFF2 },
   { sec:"banoNino",   lvl:1, x0:0,  z0:4,   x1:5,  z1:6,  color:0xDCEEE4, bath:true },
   { sec:"nina",    lvl:1, x0:5,  z0:0,   x1:10, z1:4,  color:0xF6E8EC },
   { sec:"banoNina",   lvl:1, x0:5,  z0:4,   x1:10, z1:6,  color:0xF2E4EA, bath:true },
   { sec:"papas",   lvl:1, x0:10, z0:0,   x1:16, z1:4,  color:0xF0E9DC },
-  { sec:"banoPapas",  lvl:1, x0:10, z0:4,   x1:16, z1:6,  color:0xDDEAEC, bath:true }
+  { sec:"banoPapas",  lvl:1, x0:10, z0:4,   x1:16, z1:6,  color:0xDDEAEC, bath:true },
+  { sec:"estudio", lvl:1, x0:16, z0:0,   x1:22, z1:6,  color:0xEAF0E4 }
 ];
 
 /* ==================== ESCENA ==================== */
@@ -585,8 +614,8 @@ function initThree(){
   controls.target.set(0, 0.8, 0);
   controls.enableDamping = true;
   controls.dampingFactor = 0.07;
-  controls.minDistance = 10;
-  controls.maxDistance = 48;
+  controls.minDistance = 8;
+  controls.maxDistance = 90;
   controls.maxPolarAngle = Math.PI * 0.46;   // no pasar bajo el suelo
   controls.minPolarAngle = Math.PI * 0.10;
   controls.autoRotateSpeed = 0.7;
@@ -655,7 +684,7 @@ function buildWorld(){
   // --- terreno ---
   const groundMat = mat(SEASON_THEME[season].ground);
   seasonMats.ground = groundMat;
-  const ground = new THREE.Mesh(new THREE.CylinderGeometry(19, 19.6, 0.9, 48), groundMat);
+  const ground = new THREE.Mesh(new THREE.CylinderGeometry(20, 20.6, 0.9, 56), groundMat);
   ground.position.set(0, -0.6, 0);
   ground.receiveShadow = true;
   houseGroup.add(ground);
@@ -684,7 +713,7 @@ function buildRoom(r, grassMat){
   g.userData.lvl = r.lvl;
 
   // losa / piso
-  const floorMat = r.open ? grassMat : mat(r.color);
+  const floorMat = r.open ? (r.floor ? mat(r.floor) : grassMat) : mat(r.color);
   const slab = box(w, SLAB, d, floorMat, cxp, baseY + SLAB / 2, czp, g);
   slab.userData.sec = r.sec;
   slab.userData.baseColor = r.open ? null : r.color;
@@ -703,9 +732,11 @@ function buildRoom(r, grassMat){
     // borde bajito para el exterior
     const t = 0.18, h = 0.26, y = baseY + SLAB + h/2;
     const edge = mat(0xD9CDB4);
-    box(w, h, t, edge, cxp, y, czp + d/2 - t/2, g);
-    box(t, h, d, edge, cxp - w/2 + t/2, y, czp, g);
-    box(t, h, d, edge, cxp + w/2 - t/2, y, czp, g);
+    if (!r.driveway){
+      box(w, h, t, edge, cxp, y, czp + d/2 - t/2, g);
+      box(t, h, d, edge, cxp - w/2 + t/2, y, czp, g);
+      box(t, h, d, edge, cxp + w/2 - t/2, y, czp, g);
+    }
   }
 
   furnish(r, g, cxp, czp, baseY + SLAB, w, d);
@@ -726,7 +757,75 @@ function furnish(r, g, cx, cz, y, w, d){
   const terra    = mat(0xC57A52);
   const gris     = mat(0xCFCBC2);
 
+  if (r.driveway){
+    // entrada de autos: líneas y bordillo
+    for (let i = 0; i < 4; i++) box(.12, .02, 1.0, mat(0xF4F1EA), cx, y + .01, cz - 2.2 + i * 1.5, g);
+    return;
+  }
   switch (r.sec){
+    case "garaje": {
+      // carro
+      const car = new THREE.Group();
+      const pintura = mat(0x4E7FA8), vidrio = mat(0x2B3A44), llanta = mat(0x2A2623);
+      box(2.0, .55, 3.7, pintura, 0, .55, 0, car);
+      box(1.75, .5, 1.9, vidrio, 0, 1.05, -.15, car);
+      box(1.8, .08, 1.95, pintura, 0, 1.33, -.15, car);
+      [[-.95, 1.2], [.95, 1.2], [-.95, -1.2], [.95, -1.2]].forEach(([ox, oz]) => {
+        const w0 = cyl(.36, .36, .28, llanta, ox, .36, oz, car, 16); w0.rotation.z = Math.PI / 2;
+      });
+      [[-.65, 1.86], [.65, 1.86]].forEach(([ox, oz]) => box(.35, .14, .05, new THREE.MeshBasicMaterial({ color:0xFFF2B0 }), ox, .7, oz, car));
+      [[-.65, -1.86], [.65, -1.86]].forEach(([ox, oz]) => box(.35, .12, .05, mat(0xB23A3A), ox, .7, oz, car));
+      car.position.set(cx - .4, y, cz + .3);
+      g.add(car);
+      // repisa con herramientas y llantas
+      box(2.6, .9, .45, mat(0x8C5E3C), cx + 1.4, y + .45, cz - 2.6, g);
+      [[.6, 0xB23A3A], [1.2, 0xE3AE4F], [1.8, 0x6E8A5E]].forEach(([ox, c]) => box(.4, .3, .3, mat(c), cx + ox + .2, y + 1.05, cz - 2.6, g));
+      [0, .3].forEach(oy => { const t0 = cyl(.42, .42, .26, llanta, cx + 2.35, y + .13 + oy, cz + 2.2, g, 16); });
+      break;
+    }
+    case "bbq": {
+      // parrilla
+      const parr = new THREE.Group();
+      [[-.35, -.2], [.35, -.2], [-.35, .2], [.35, .2]].forEach(([ox, oz]) => cyl(.04, .04, .8, mat(0x3B3027), ox, .4, oz, parr));
+      box(1.0, .35, .6, mat(0x2E2A27), 0, .95, 0, parr);
+      box(1.02, .04, .62, mat(0x6B6258), 0, 1.14, 0, parr);
+      [-.3, 0, .3].forEach(ox => box(.18, .06, .5, new THREE.MeshBasicMaterial({ color:0xE0702F }), ox, 1.17, 0, parr));
+      cyl(.07, .07, .7, mat(0x3B3027), .4, 1.5, -.25, parr);
+      parr.position.set(cx - 1.0, y, cz - 2.0);
+      g.add(parr);
+      // mesa de picnic con bancas
+      box(2.0, .08, .9, mat(0xA9794E), cx + .5, y + .75, cz + .7, g);
+      [-.8, .8].forEach(ox => box(.08, .72, .8, mat(0x8C5E3C), cx + .5 + ox, y + .38, cz + .7, g));
+      [-.75, .75].forEach(oz => box(2.0, .07, .3, mat(0xA9794E), cx + .5, y + .45, cz + .7 + oz, g));
+      // pérgola
+      [[-1.6, -.6], [1.6, -.6], [-1.6, 2.0], [1.6, 2.0]].forEach(([ox, oz]) => box(.12, 2.2, .12, mat(0x8C5E3C), cx + .5 + ox, y + 1.1, cz + .7 + oz - .7, g));
+      for (let i = 0; i < 6; i++) box(3.4, .07, .1, mat(0xA9794E), cx + .5, y + 2.22, cz - .6 + i * .52, g);
+      // saco de carbón
+      box(.4, .5, .3, mat(0x2E2A27), cx - 1.9, y + .25, cz - 1.0, g);
+      break;
+    }
+    case "estudio": {
+      // dos escritorios con silla y laptop
+      [-1.4, 1.4].forEach(ox => {
+        box(1.7, .07, .75, mat(0xF4F1EA), cx + ox, y + .74, cz - 2.1, g);
+        [-.75, .75].forEach(lx => box(.06, .72, .7, mat(0xCFCBC2), cx + ox + lx, y + .37, cz - 2.1, g));
+        box(.6, .04, .42, mat(0x3B3027), cx + ox, y + .79, cz - 2.15, g);
+        box(.6, .38, .03, mat(0x3B3027), cx + ox, y + .98, cz - 2.36, g);
+        box(.5, .08, .5, mat(ox < 0 ? 0x7FA9C4 : 0xE0A9BC), cx + ox, y + .46, cz - 1.35, g);
+        box(.5, .5, .06, mat(ox < 0 ? 0x7FA9C4 : 0xE0A9BC), cx + ox, y + .74, cz - 1.12, g);
+      });
+      // librero con libros de colores
+      box(.45, 1.5, 1.6, mat(0xA9794E), cx + 2.6, y + .75, cz + 1.0, g);
+      [0xB23A3A, 0xE3AE4F, 0x6E8A5E, 0x4E7FA8, 0xC57A52].forEach((c, i) => box(.3, .32, .14, mat(c), cx + 2.45, y + .35 + (i % 3) * .45, cz + .5 + i * .2, g));
+      // pizarra en la pared
+      box(.06, .9, 1.6, mat(0xFFFFFF), cx - 2.85, y + 1.0, cz + .6, g);
+      box(.07, 1.0, 1.7, mat(0x8C5E3C), cx - 2.88, y + 1.0, cz + .6, g);
+      // globo terráqueo y alfombra
+      cyl(.05, .12, .3, mat(0x8C5E3C), cx + 1.4, y + .9, cz - 2.0, g);
+      sphere(.2, mat(0x4E9AC4), cx + 1.4, y + 1.2, cz - 2.0, g);
+      box(2.6, .02, 1.8, mat(0xE3AE4F), cx - .2, y + .01, cz + 1.0, g);
+      break;
+    }
     case "sala": {
       // sofá
       box(2.6, .45, 1.1, terra, cx - .6, y + .3, cz - 1.4, g);
@@ -822,8 +921,8 @@ function furnish(r, g, cx, cz, y, w, d){
       break;
     }
     case "patio": {
-      // árboles
-      [[-3.2, 1.6], [2.6, 2.4]].forEach(([ox, oz]) => {
+      // árboles en las esquinas
+      [[-2.8, 2.0], [3.2, -2.0]].forEach(([ox, oz]) => {
         cyl(.18, .24, 1.1, mat(0x8C5E3C), cx + ox, y + .55, cz + oz, g);
         const crown = sphere(.95, mat(SEASON_THEME[season].tree), cx + ox, y + 1.6, cz + oz, g);
         seasonMats.tree.push(crown.material);
@@ -831,71 +930,76 @@ function furnish(r, g, cx, cz, y, w, d){
         seasonMats.blossom.push(bl.material);
         springObjects.push(bl);
       });
-      // mesa de jardín + sillas
-      cyl(.08, .08, .6, gris, cx - .6, y + .3, cz - 1.6, g);
-      cyl(.65, .65, .08, blanco, cx - .6, y + .62, cz - 1.6, g);
-      [-1.3, .1].forEach(ox => box(.45, .06, .45, mat(0xDCCFB6), cx + ox, y + .35, cz - 2.4, g));
-      // sombrilla (verano)
+      // mesa de jardín con sombrilla (verano)
+      cyl(.08, .08, .6, gris, cx - 2.0, y + .3, cz - 1.6, g);
+      cyl(.65, .65, .08, blanco, cx - 2.0, y + .62, cz - 1.6, g);
+      [-2.8, -1.2].forEach(ox => box(.45, .06, .45, mat(0xDCCFB6), cx + ox, y + .35, cz - 1.0, g));
       const umb = new THREE.Group();
-      cyl(.05, .05, 2.0, gris, cx - .6, y + 1.0, cz - 1.6, umb);
-      const top = cyl(1.5, 0.05, .55, mat(0xC57A52), cx - .6, y + 2.1, cz - 1.6, umb, 10);
+      cyl(.05, .05, 2.0, gris, cx - 2.0, y + 1.0, cz - 1.6, umb);
+      cyl(1.4, 0.05, .5, mat(0xC57A52), cx - 2.0, y + 2.05, cz - 1.6, umb, 10);
       g.add(umb); summerObjects.push(umb);
-      // macetas con flores (primavera)
-      [[-4.2, -1.2], [-4.2, -.2], [-4.2, .8]].forEach(([ox, oz], i) => {
+      // macetas con flores (primavera y verano)
+      [[-3.6, -.3], [-3.6, .6]].forEach(([ox, oz], i) => {
         cyl(.22, .26, .35, terra, cx + ox, y + .17, cz + oz, g);
-        const fl = sphere(.26, mat([0xE9A7BE, 0xF2D79A, 0xC98BA4][i]), cx + ox, y + .52, cz + oz, g);
-        springObjects.push(fl);
+        springObjects.push(sphere(.26, mat([0xE9A7BE, 0xF2D79A][i]), cx + ox, y + .52, cz + oz, g));
       });
-      // camino de piedra
+      // camino de piedra desde la casa
       for (let i = 0; i < 5; i++)
-        box(.9, .06, .6, mat(0xD9CDB4), cx + 3.4, y + .03, cz - 2.6 + i * 1.1, g);
+        box(.9, .06, .6, mat(0xD9CDB4), cx + .2, y + .03, cz - 2.4 + i * 1.15, g);
 
-      // ---- escena de Navidad (solo en invierno) ----
+      // ---- árbol de Navidad: espacio propio y clicable (solo en Navidad) ----
       const nav = new THREE.Group();
-      const tx = cx - 1.9, tz = cz + 2.1;
-      cyl(.16, .18, .4, mat(0x6B4A2F), tx, y + .2, tz, nav);
+      nav.userData.sec = "navidad";
+      const tx = cx + 2.0, tz = cz + 1.3;
+      cyl(.18, .2, .45, mat(0x6B4A2F), tx, y + .22, tz, nav);
       const pino = mat(0x1F5E3D);
-      [[1.25, .9, .55], [1.0, .75, 1.3], [.72, .62, 1.95]].forEach(([r, h, yy]) => {
-        const c = new THREE.Mesh(new THREE.ConeGeometry(r, h, 12), pino);
+      [[1.15, .95, .7], [.9, .8, 1.4], [.62, .65, 2.0]].forEach(([r0, h, yy]) => {
+        const c = new THREE.Mesh(new THREE.ConeGeometry(r0, h, 14), pino);
         c.position.set(tx, y + yy, tz); c.castShadow = true; c.receiveShadow = true; nav.add(c);
       });
-      const estrella = new THREE.Mesh(new THREE.OctahedronGeometry(.2),
-                        new THREE.MeshBasicMaterial({ color:0xFFD75E }));
-      estrella.position.set(tx, y + 2.42, tz); nav.add(estrella);
-      // esferas del árbol
-      [[.55,.75,0xB23A3A],[-.5,1.0,0xD9B44A],[.35,1.45,0x6FA8DC],[-.3,1.75,0xB23A3A],[.2,2.05,0xD9B44A]]
-        .forEach(([ox, yy, col]) => sphere(.11, new THREE.MeshBasicMaterial({ color:col }), tx + ox, y + yy, tz + .35, nav));
-      // regalos
-      [[-.9,.0,0xB23A3A,.45],[-.55,.55,0x2F7A4F,.38],[.45,-.75,0xD9B44A,.34]].forEach(([ox,oz,col,sz]) => {
+      const estrella = new THREE.Mesh(new THREE.OctahedronGeometry(.2), new THREE.MeshBasicMaterial({ color:0xFFD75E }));
+      estrella.position.set(tx, y + 2.5, tz); nav.add(estrella);
+      // esferas alrededor del árbol (no solo de frente)
+      const cols = [0xB23A3A, 0xD9B44A, 0x6FA8DC, 0xFFFFFF];
+      [[.9, .8], [.72, 1.25], [.5, 1.7], [.3, 2.1]].forEach(([rad, yy], k) => {
+        for (let i = 0; i < 6; i++){
+          const ang = i / 6 * Math.PI * 2 + k * .5;
+          sphere(.09, new THREE.MeshBasicMaterial({ color: cols[(i + k) % 4] }), tx + Math.cos(ang) * rad, y + yy, tz + Math.sin(ang) * rad, nav);
+        }
+      });
+      // regalos al pie del árbol
+      [[-.95, .35, 0xB23A3A, .42], [.95, .3, 0x2F7A4F, .38], [0, 1.0, 0xD9B44A, .34], [-.5, -.9, 0x4E7FA8, .3]].forEach(([ox, oz, col, sz]) => {
         box(sz, sz, sz, mat(col), tx + ox, y + sz/2, tz + oz, nav);
-        box(sz + .03, .05, .09, mat(0xF6F2E8), tx + ox, y + sz/2 + sz/2 - .02, tz + oz, nav);
+        box(sz + .03, .05, .09, mat(0xF6F2E8), tx + ox, y + sz, tz + oz, nav);
       });
       // muñeco de nieve
-      const nx = cx - 2.6, nz = cz - 2.1, nieve = mat(0xFBFDFF);
-      sphere(.5, nieve, nx, y + .45, nz, nav);
-      sphere(.36, nieve, nx, y + 1.1, nz, nav);
-      sphere(.26, nieve, nx, y + 1.58, nz, nav);
-      cyl(.33, .33, .06, mat(0x3B3027), nx, y + 1.78, nz, nav);
-      cyl(.2, .2, .3, mat(0x3B3027), nx, y + 1.93, nz, nav);
-      const nariz = new THREE.Mesh(new THREE.ConeGeometry(.06, .25, 8), mat(0xE07A2F));
-      nariz.position.set(nx, y + 1.58, nz + .28); nariz.rotation.x = Math.PI / 2; nav.add(nariz);
-      sphere(.045, mat(0x3B3027), nx - .1, y + 1.65, nz + .23, nav);
-      sphere(.045, mat(0x3B3027), nx + .1, y + 1.65, nz + .23, nav);
+      const nx = cx - .9, nz = cz + 1.6, nieve = mat(0xFBFDFF);
+      sphere(.45, nieve, nx, y + .42, nz, nav);
+      sphere(.32, nieve, nx, y + 1.0, nz, nav);
+      sphere(.23, nieve, nx, y + 1.42, nz, nav);
+      cyl(.3, .3, .05, mat(0x3B3027), nx, y + 1.6, nz, nav);
+      cyl(.18, .18, .28, mat(0x3B3027), nx, y + 1.75, nz, nav);
+      const nariz = new THREE.Mesh(new THREE.ConeGeometry(.05, .22, 8), mat(0xE07A2F));
+      nariz.position.set(nx, y + 1.42, nz + .25); nariz.rotation.x = Math.PI / 2; nav.add(nariz);
 
-      g.add(nav); winterObjects.push(nav);
+      nav.visible = false;
+      floorGroups[0].add(nav);
+      winterObjects.push(nav);
+      clickTargets.push(nav);
+      roomRegistry.navidad = [nav];
       break;
     }
     case "mascota": {
       // casita del perro
-      box(1.6, .9, 1.5, mat(0xC57A52), cx - .3, y + .45, cz - .9, g);
-      const roofA = box(1.8, .12, 1.0, mat(0x8C5E3C), cx - .3, y + 1.08, cz - 1.22, g);
+      box(1.5, .9, 1.4, mat(0xC57A52), cx - .2, y + .45, cz - 1.4, g);
+      const roofA = box(1.7, .12, .95, mat(0x8C5E3C), cx - .2, y + 1.08, cz - 1.7, g);
       roofA.rotation.x = -0.6;
-      const roofB = box(1.8, .12, 1.0, mat(0x8C5E3C), cx - .3, y + 1.08, cz - .58, g);
+      const roofB = box(1.7, .12, .95, mat(0x8C5E3C), cx - .2, y + 1.08, cz - 1.1, g);
       roofB.rotation.x = 0.6;
-      box(.55, .6, .1, mat(0x6B5B49), cx - .3, y + .3, cz - .17, g);
+      box(.5, .6, .1, mat(0x6B5B49), cx - .2, y + .3, cz - .7, g);
       // platos
-      cyl(.26, .3, .14, mat(0x9DB39A), cx + 1.3, y + .07, cz - .4, g);
-      cyl(.26, .3, .14, mat(0xE3AE4F), cx + 1.3, y + .07, cz + .3, g);
+      cyl(.24, .28, .14, mat(0x9DB39A), cx + 1.1, y + .07, cz - .1, g);
+      cyl(.24, .28, .14, mat(0xE3AE4F), cx + 1.1, y + .07, cz + .5, g);
       // hueso
       box(.4, .1, .1, blanco, cx + .4, y + .05, cz + 1.4, g);
       sphere(.1, blanco, cx + .22, y + .07, cz + 1.4, g);
@@ -915,28 +1019,25 @@ function buildExterior(grassMat){
   const g = new THREE.Group();
   exteriorGroup = g;
   const post = mat(0xD9CDB4);
-  // cerco en el borde del lote
-  for (let x = 0; x <= 16; x += 2){
-    box(.16, .8, .16, post, px(x), 0.4, pz(12.2), g);
-  }
+  // cerco frontal (con portón abierto frente a la entrada de autos) y laterales
+  for (let x = 0; x <= 16; x += 2) box(.16, .8, .16, post, px(x), 0.4, pz(12.2), g);
+  box(16.2, .12, .12, post, px(8), 0.72, pz(12.2), g);
+  box(.2, 1.0, .2, post, px(21.9), 0.5, pz(12.2), g);
   for (let z = 6; z <= 12; z += 2){
     box(.16, .8, .16, post, px(-0.2), 0.4, pz(z), g);
-    box(.16, .8, .16, post, px(16.2), 0.4, pz(z), g);
+    box(.16, .8, .16, post, px(22.2), 0.4, pz(z), g);
   }
-  box(16.4, .12, .12, post, px(8), 0.72, pz(12.2), g);
   // guirnalda de luces navideñas sobre el cerco
   const luces = new THREE.Group();
   const colores = [0xB23A3A, 0xD9B44A, 0x2F7A4F, 0x6FA8DC];
   for (let i = 0; i <= 32; i++){
     const t = i / 32;
-    const lx = px(t * 16);
-    const ly = 0.78 - Math.sin(t * Math.PI * 8) * 0.10 + 0.04;
-    const m = sphere(.09, new THREE.MeshBasicMaterial({ color: colores[i % 4] }), lx, ly, pz(12.2), luces);
+    const m = sphere(.09, new THREE.MeshBasicMaterial({ color: colores[i % 4] }), px(t * 16), 0.82 - Math.sin(t * Math.PI * 8) * 0.10, pz(12.2), luces);
     m.castShadow = false;
   }
   g.add(luces); winterObjects.push(luces);
   // farolas
-  [[1.2, 9.5], [14.8, 9.5]].forEach(([x, z]) => {
+  [[0.5, 6.6], [16.3, 11.6]].forEach(([x, z]) => {
     cyl(.09, .11, 1.9, mat(0x6B6258), px(x), .95, pz(z), g);
     const lamp = sphere(.22, new THREE.MeshBasicMaterial({ color:0xFFE9A8 }), px(x), 2.0, pz(z), g);
     lamp.castShadow = false;
@@ -949,30 +1050,30 @@ function buildRoof(){
   roofGroup = new THREE.Group();
   const roofMat = mat(0xA8603C);
   const h = UP_Y + SLAB + WALL_H;          // altura donde arranca el techo
-  const slope = new THREE.BoxGeometry(16.6, .18, 3.9);
+  const slope = new THREE.BoxGeometry(22.6, .18, 3.9);
 
   const a = new THREE.Mesh(slope, roofMat);
-  a.position.set(px(8), h + .85, pz(1.5));
+  a.position.set(px(11), h + .85, pz(1.5));
   a.rotation.x = -0.55;
   a.castShadow = true; a.receiveShadow = true;
 
   const b = new THREE.Mesh(slope, roofMat);
-  b.position.set(px(8), h + .85, pz(4.5));
+  b.position.set(px(11), h + .85, pz(4.5));
   b.rotation.x = 0.55;
   b.castShadow = true; b.receiveShadow = true;
 
   roofGroup.add(a, b);
   // cumbrera
-  box(16.8, .2, .3, mat(0x8C5E3C), px(8), h + 1.78, pz(3), roofGroup);
+  box(22.8, .2, .3, mat(0x8C5E3C), px(11), h + 1.78, pz(3), roofGroup);
   // chimenea
   box(.7, 1.1, .7, mat(0xC57A52), px(13), h + 1.5, pz(1.6), roofGroup);
 
   // nieve sobre el techo
   const nieveTecho = new THREE.Group();
-  const na = new THREE.Mesh(new THREE.BoxGeometry(16.7, .12, 3.6), mat(0xFBFDFF));
-  na.position.set(px(8), h + 1.0, pz(1.45)); na.rotation.x = -0.55; na.receiveShadow = true;
-  const nb = new THREE.Mesh(new THREE.BoxGeometry(16.7, .12, 3.6), mat(0xFBFDFF));
-  nb.position.set(px(8), h + 1.0, pz(4.55)); nb.rotation.x = 0.55; nb.receiveShadow = true;
+  const na = new THREE.Mesh(new THREE.BoxGeometry(22.7, .12, 3.6), mat(0xFBFDFF));
+  na.position.set(px(11), h + 1.0, pz(1.45)); na.rotation.x = -0.55; na.receiveShadow = true;
+  const nb = new THREE.Mesh(new THREE.BoxGeometry(22.7, .12, 3.6), mat(0xFBFDFF));
+  nb.position.set(px(11), h + 1.0, pz(4.55)); nb.rotation.x = 0.55; nb.receiveShadow = true;
   nieveTecho.add(na, nb);
   roofGroup.add(nieveTecho);
   winterObjects.push(nieveTecho);
@@ -1038,7 +1139,7 @@ function applySeason(s){
     b.classList.toggle("active", b.dataset.season === s));
   document.documentElement.style.setProperty("--acc", t.acc);
   document.getElementById("statSeason").textContent = SEASON_NAMES[s].toLowerCase();
-  document.getElementById("pillTxt").textContent = SEASON_NAMES[s] + " · 12 espacios";
+  document.getElementById("pillTxt").textContent = SEASON_NAMES[s];
 
   renderCatalog();
   if (selected) openPanel(selected);
@@ -1051,6 +1152,9 @@ function itemsFor(sec){
 function updateStats(){
   const total = Object.keys(SECTIONS).reduce((n, k) => n + itemsFor(k).length, 0);
   document.getElementById("statProd").textContent = total;
+  const esp = Object.keys(SECTIONS).filter(k => itemsFor(k).length).length;
+  document.getElementById("statEsp").textContent = esp;
+  document.getElementById("pillTxt").textContent = SEASON_NAMES[season] + " · " + esp + " espacios";
 }
 
 /* ==================== INTERACCIÓN ==================== */
@@ -1072,7 +1176,9 @@ function pickAt(ev){
   raycaster.setFromCamera(pointer, camera);
   const visible = clickTargets.filter(g => g.parent && g.parent.visible);
   const hits = raycaster.intersectObjects(visible, true);
+  const shown = o => { for (let x = o; x; x = x.parent) if (!x.visible) return false; return true; };
   for (const h of hits){
+    if (!shown(h.object)) continue;
     let o = h.object;
     while (o && !(o.userData && o.userData.sec)) o = o.parent;
     if (o) return o.userData.sec;
@@ -1120,27 +1226,61 @@ function animateTarget(dest){
 }
 
 /* encuadre por piso: objetivo, inclinación y distancia según la forma de la pantalla */
+/* encuadre por piso: caja del plano a mostrar (en metros del plano) e inclinación */
 const VIEW = {
-  pb:   { y: 0.8, z: 0,  elev: 40, dist: { xs:58, s:50, m:38, l:31 } },
-  pa:   { x: -1.3, y: 0.5, z: -4.2, elev: 55, dist: { xs:47, s:39, m:31, l:26 } },
-  both: { y: 1.8, z: 0,  elev: 38, dist: { xs:64, s:56, m:43, l:35 } }
+  pb:   { box:[0, 22, 0, 12.4, 0, 1.6],  elev: 44 },
+  pa:   { box:[0, 22, 0, 6,    0, 1.6],  elev: 56 },
+  both: { box:[0, 22, 0, 12.4, 0, 5.8],  elev: 38 }
 };
 function aspectBucket(){
   const a = viewW / viewH;
   return a < 0.62 ? "xs" : a < 0.95 ? "s" : a < 1.5 ? "m" : "l";
 }
+/* encuadre: distancia mínima para que la caja entre en pantalla, recentrando por la perspectiva */
+function fitView(corners, target, dir){
+  const f = dir.clone().negate();
+  const r = new THREE.Vector3().crossVectors(f, new THREE.Vector3(0, 1, 0)).normalize();
+  const u = new THREE.Vector3().crossVectors(r, f).normalize();
+  const tV = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)), tH = tV * camera.aspect;
+  const narrow = viewW < 760;
+  const mh = narrow ? 0.88 : 0.92, mv = narrow ? 0.70 : 0.80;     // deja espacio para tarjetas y botones
+  const t = target.clone();
+  let d = 0;
+  for (let it = 0; it < 4; it++){
+    d = 0;
+    for (const c of corners){
+      const v = c.clone().sub(t), xc = v.dot(r), yc = v.dot(u), zc = v.dot(dir);
+      d = Math.max(d, zc + Math.abs(xc) / (tH * mh), zc + Math.abs(yc) / (tV * mv));
+    }
+    // dónde cae la caja en pantalla con esa distancia, y cuánto está descentrada
+    let x0 = 9, x1 = -9, y0 = 9, y1 = -9;
+    for (const c of corners){
+      const v = c.clone().sub(t), xc = v.dot(r), yc = v.dot(u), zc = v.dot(dir);
+      const nx = xc / ((d - zc) * tH), ny = yc / ((d - zc) * tV);
+      x0 = Math.min(x0, nx); x1 = Math.max(x1, nx); y0 = Math.min(y0, ny); y1 = Math.max(y1, ny);
+    }
+    t.add(r.clone().multiplyScalar((x0 + x1) / 2 * d * tH)).add(u.clone().multiplyScalar((y0 + y1) / 2 * d * tV));
+  }
+  return { d, target: t };
+}
 let viewAnim = null;
 function flyTo(mode){
   const v = VIEW[mode] || VIEW.pb;
-  const target = new THREE.Vector3(v.x || 0, v.y, v.z);
-  const az = Math.atan2(camera.position.x - controls.target.x, camera.position.z - controls.target.z);
-  const el = v.elev * Math.PI / 180, d = v.dist[aspectBucket()];
-  const pos = new THREE.Vector3(
-    target.x + d * Math.cos(el) * Math.sin(az),
-    target.y + d * Math.sin(el),
-    target.z + d * Math.cos(el) * Math.cos(az));
+  const [x0, x1, z0, z1, y0, y1] = v.box;
+  const corners = [];
+  for (const x of [x0, x1]) for (const z of [z0, z1]) for (const y of [y0, y1])
+    corners.push(new THREE.Vector3(px(x), y, pz(z)));
+  const center = new THREE.Vector3(px((x0 + x1) / 2), (y0 + y1) / 2, pz((z0 + z1) / 2));
+  // en pantallas verticales la cámara mira a lo largo de la casa para aprovechar el alto
+  const portrait = viewW / viewH < 0.85;
+  const az = THREE.MathUtils.degToRad(portrait ? 80 : 25);
+  const el = THREE.MathUtils.degToRad(portrait ? v.elev + 4 : v.elev - 4);
+  const dir = new THREE.Vector3(Math.cos(el) * Math.sin(az), Math.sin(el), Math.cos(el) * Math.cos(az)).normalize();
+  const fit = fitView(corners, center, dir);
+  const d = Math.min(controls.maxDistance, Math.max(controls.minDistance, fit.d));
+  const pos = fit.target.clone().add(dir.multiplyScalar(d));
   targetAnim = null;
-  viewAnim = { ft: controls.target.clone(), tt: target, fp: camera.position.clone(), tp: pos, t: 0 };
+  viewAnim = { ft: controls.target.clone(), tt: fit.target, fp: camera.position.clone(), tp: pos, t: 0 };
 }
 
 let viewShift = 0;
@@ -1274,7 +1414,8 @@ document.getElementById("bReset").onclick = () => {
 const PIN_ICON = {
   sala:"🛋️", comedor:"🍽️", cocina:"🍳", banoSocial:"🚽",
   nino:"🧸", banoNino:"🦆", nina:"🎀", banoNina:"🪞",
-  papas:"🛏️", banoPapas:"🚿", patio:"🌳", mascota:"🐶"
+  papas:"🛏️", banoPapas:"🚿", patio:"🌳", mascota:"🐶",
+  garaje:"🚗", bbq:"🍖", estudio:"📚", navidad:"🎄"
 };
 const pinHost = document.getElementById("pins");
 const pins = [];
@@ -1304,12 +1445,21 @@ function buildPins(){
       )
     });
   });
+  // árbol de Navidad: etiqueta propia, solo en temporada navideña
+  const el = document.createElement("button");
+  el.className = "pin pin-xmas";
+  el.innerHTML = '<span class="pdot">🎄</span><span class="ptxt">' + SECTIONS.navidad.label + '</span>';
+  el.title = SECTIONS.navidad.label;
+  el.setAttribute("aria-label", SECTIONS.navidad.label);
+  el.addEventListener("click", ev => { ev.stopPropagation(); selectRoom("navidad"); });
+  pinHost.appendChild(el);
+  pins.push({ el, r:{ sec:"navidad", lvl:0 }, onlySeason:"invierno", anchor:new THREE.Vector3(px(6.3), 2.1, pz(11.0)) });
 }
 
 const _v = new THREE.Vector3();
 function updatePins(){
   for (const p of pins){
-    if (!floorGroups[p.r.lvl].visible){ p.el.style.display = "none"; continue; }
+    if (!floorGroups[p.r.lvl].visible || (p.onlySeason && season !== p.onlySeason) || !itemsFor(p.r.sec).length){ p.el.style.display = "none"; continue; }
     const yOff = p.r.lvl === 1 ? floorGroups[1].position.y : 0;
     _v.set(p.anchor.x, p.anchor.y + yOff, p.anchor.z).project(camera);
     if (_v.z > 1){ p.el.style.display = "none"; continue; }
@@ -1331,7 +1481,7 @@ const cardIO = new IntersectionObserver(es => {
 
 function renderCatalog(){
   const host = document.getElementById("catalog");
-  host.innerHTML = Object.entries(SECTIONS).map(([id, sec]) => {
+  host.innerHTML = Object.entries(SECTIONS).filter(([id]) => itemsFor(id).length).map(([id, sec]) => {
     const items = itemsFor(id);
     return `
       <article class="block" id="cat-${id}">
