@@ -1,10 +1,9 @@
 /* ==================== TIENDA ====================
-   Punto de entrada de la página: temporada, catálogo, ficha de producto
-   y panel de cada espacio. No depende de la casa 3D: si la casa no carga
-   (sin WebGL o sin conexión al CDN de three.js), el catálogo sigue funcionando. */
+   Punto de entrada de la página: temporada, tarjetas de espacios con fotos,
+   catálogo, buscador y ficha de producto. */
 import { SECTIONS, ICONOS } from "./datos.js";
-import { SEASON_NAMES, SEASON_THEME, temporadaInicial } from "./temporadas.js";
-import { findByRef, itemsFor, infoFor, espaciosCon, contarProductos, miniatura } from "./productos.js";
+import { SEASON_NAMES, ACENTO, temporadaInicial } from "./temporadas.js";
+import { findByRef, itemsFor, infoFor, espaciosCon, miniatura } from "./productos.js";
 import { waLink } from "./config.js";
 import { evento } from "./analitica.js";
 
@@ -12,12 +11,6 @@ const $ = id => document.getElementById(id);
 
 /* ==================== ESTADO ==================== */
 let temporada = temporadaInicial();       // según el mes o ?temporada= en el enlace
-let espacioAbierto = null;                 // espacio cuyo panel está abierto
-let temaOn = true;                         // colores de temporada en toda la página
-
-/* la casa 3D se suscribe a estos avisos */
-const oyentes = { temporada: [], espacio: [] };
-const avisar = (evento, valor) => oyentes[evento].forEach(fn => fn(valor));
 
 /* ==================== HTML DE PRODUCTOS ==================== */
 const attr = t => String(t).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");
@@ -48,82 +41,67 @@ function comboTag(p){
 /* ==================== TEMPORADA ==================== */
 function cambiarTemporada(s){
   temporada = s;
-  if (temaOn) document.body.dataset.tema = s;
+  document.body.dataset.tema = s;
   document.querySelectorAll("#seasonRow .chip").forEach(b =>
     b.classList.toggle("active", b.dataset.season === s));
-  document.documentElement.style.setProperty("--acc", SEASON_THEME[s].acc);
-  $("statSeason").textContent = SEASON_NAMES[s].toLowerCase();
+  document.documentElement.style.setProperty("--acc", ACENTO[s]);
+  const esp = espaciosCon(s).length;
+  $("pillTxt").textContent = SEASON_NAMES[s] + " · " + esp + " espacios";
+  $("espSub").textContent = esp + " espacios con productos de " + SEASON_NAMES[s].toLowerCase() + " · toca uno para ver sus productos";
 
-  renderCatalog();
   renderEspacios();
-  if (espacioAbierto) abrirEspacio(espacioAbierto);
-  updateStats();
-  avisar("temporada", s);
-}
-
-/* botones "Ir a: Sala · Cocina…" debajo de la casa */
-function renderEspacios(){
-  $("espacios").innerHTML = espaciosCon(temporada).map(sec =>
-    `<button class="chip esp" data-espacio="${sec}">${ICONOS[sec] || ""} ${SECTIONS[sec].label}</button>`).join("");
-  marcarEspacio();
-}
-function marcarEspacio(){
-  document.querySelectorAll("#espacios [data-espacio]").forEach(b =>
-    b.classList.toggle("active", b.dataset.espacio === espacioAbierto));
-}
-$("espacios").addEventListener("click", ev => {
-  const b = ev.target.closest("[data-espacio]");
-  if (!b) return;
-  abrirEspacio(b.dataset.espacio);
-  $("sceneWrap").scrollIntoView({ behavior:"smooth", block:"start" });
-});
-
-function updateStats(){
-  const esp = espaciosCon(temporada).length;
-  $("statProd").textContent = contarProductos(temporada);
-  $("statEsp").textContent = esp;
-  $("pillTxt").textContent = SEASON_NAMES[temporada] + " · " + esp + " espacios";
+  renderCatalog();
 }
 
 document.querySelectorAll("#seasonRow .chip").forEach(b =>
   b.onclick = () => cambiarTemporada(b.dataset.season));
 
-const bTema = $("bTema");
-bTema.onclick = () => {
-  temaOn = !temaOn;
-  bTema.classList.toggle("active", temaOn);
-  if (temaOn) document.body.dataset.tema = temporada;
-  else delete document.body.dataset.tema;
-};
-
-/* ==================== PANEL DE UN ESPACIO ==================== */
-function abrirEspacio(sec){
-  const s = SECTIONS[sec];
+/* ==================== ESPACIOS: tarjetas con mosaico de fotos ==================== */
+/* hasta 4 fotos de productos distintos del espacio (primero los productos sueltos) */
+function fotosEspacio(sec){
   const items = itemsFor(sec, temporada);
-  espacioAbierto = sec;
-  $("pTag").textContent = s.tag;
-  $("pTitle").textContent = s.label;
-  $("pSub").textContent =
-    SEASON_NAMES[temporada] + " · " + items.length + " producto" + (items.length === 1 ? "" : "s");
-  $("pBody").innerHTML = items.length
-    ? items.map(p => `
-      <div class="prod">
-        <span data-detail="${attr(p.ref)}" class="mwrap">${media(p, "emo")}</span>
-        <div class="info" data-detail="${attr(p.ref)}" role="button" tabindex="0">${comboTag(p)}<div class="nm">${p.n}</div><div class="pr">${priceHTML(p)}</div><div class="more">Ver detalles ›</div></div>
-        ${addBtn(p, "go")}
-      </div>`).join("")
-    : `<p style="padding:14px;color:var(--ink-suave);font-style:italic">Sin productos en esta temporada.</p>`;
-  $("panel").classList.add("show");
-  marcarEspacio();
-  avisar("espacio", sec);
+  const orden = [...items.filter(p => !p.combo), ...items.filter(p => p.combo)];
+  const fotos = [];
+  for (const p of orden){
+    const src = miniatura(p);
+    if (src && !fotos.some(f => f.src === src)) fotos.push({ src, alt: p.n });
+    if (fotos.length === 4) break;
+  }
+  return fotos;
 }
-function cerrarEspacio(){
-  espacioAbierto = null;
-  $("panel").classList.remove("show");
-  marcarEspacio();
-  avisar("espacio", null);
+
+function renderEspacios(){
+  $("espGrid").innerHTML = espaciosCon(temporada).map((sec, i) => {
+    const s = SECTIONS[sec], n = itemsFor(sec, temporada).length, fotos = fotosEspacio(sec);
+    return `
+      <a class="esp-card" href="#cat-${sec}" data-espacio="${sec}" style="--i:${i}">
+        <div class="mosaico m${fotos.length}">
+          ${fotos.map(f => `<img src="${attr(f.src)}" alt="${attr(f.alt)}" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.remove()">`).join("")}
+        </div>
+        <div class="esp-info">
+          <span class="esp-ico" aria-hidden="true">${ICONOS[sec] || "🏠"}</span>
+          <div>
+            <h3>${s.label}</h3>
+            <p>${s.tag} · ${n} producto${n === 1 ? "" : "s"}</p>
+          </div>
+          <span class="esp-ver" aria-hidden="true">Ver ›</span>
+        </div>
+      </a>`;
+  }).join("");
 }
-$("pClose").onclick = cerrarEspacio;
+
+/* al tocar un espacio se baja a sus productos y se resaltan un momento */
+$("espGrid").addEventListener("click", ev => {
+  const a = ev.target.closest("[data-espacio]");
+  if (!a) return;
+  ev.preventDefault();
+  if (busqueda){ busqueda = ""; $("buscar").value = ""; renderCatalog(); }
+  const bloque = $("cat-" + a.dataset.espacio);
+  if (!bloque) return;
+  bloque.scrollIntoView({ behavior:"smooth", block:"start" });
+  bloque.classList.remove("resaltar"); void bloque.offsetWidth; bloque.classList.add("resaltar");
+  bloque.querySelectorAll(".card").forEach(c => c.classList.add("in"));
+});
 
 /* ==================== CATÁLOGO (abajo) ==================== */
 const cardIO = new IntersectionObserver(es => {
@@ -272,31 +250,3 @@ $("waFloat").href = waLink();
 
 /* ==================== ARRANQUE ==================== */
 cambiarTemporada(temporada);
-
-/* lo que la casa 3D necesita de la tienda */
-const tienda = {
-  temporada: () => temporada,
-  espacioAbierto: () => espacioAbierto,
-  abrirEspacio,
-  cerrarEspacio,
-  escuchar: (evento, fn) => oyentes[evento].push(fn)
-};
-
-function sin3D(err){
-  console.error(err);
-  document.querySelector(".espacios").hidden = true;      // sin casa, los botones de espacios no sirven
-  $("loading").innerHTML =
-    '<div class="box" style="max-width:320px;text-align:center;padding:20px">' +
-    '<div style="font-size:2rem;margin-bottom:8px">🏠</div>' +
-    '<div style="font-weight:700;margin-bottom:6px">No pudimos cargar la vista 3D</div>' +
-    '<div style="font-size:.86rem;color:var(--ink-suave)">Tu navegador no soporta WebGL o está desactivado. ' +
-    'Baja un poco y revisa el catálogo completo.</div></div>';
-}
-
-/* versión de la casa: ?casa=diorama carga el prototipo nuevo para compararlo */
-const versionCasa = new URLSearchParams(location.search).get("casa") === "diorama"
-  ? import("./casa3d-diorama.js")
-  : import("./casa3d.js");
-versionCasa
-  .then(m => m.iniciarCasa(tienda))
-  .catch(sin3D);

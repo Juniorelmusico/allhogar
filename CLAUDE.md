@@ -33,11 +33,10 @@ assets/
   img/og-image.jpg      imagen que se ve al compartir el enlace (WhatsApp, Facebook…)
   js/config.js          número de WhatsApp, enlace general e IDs de medición
   js/analitica.js       Meta Pixel y Google Analytics (apagados si no hay IDs)
-  js/datos.js           CATÁLOGO: productos por espacio (SECTIONS) y fichas (INFO)
-  js/temporadas.js      nombres, colores y temporada inicial según el mes
-  js/productos.js       consultas puras sobre el catálogo (sin DOM ni 3D)
-  js/tienda.js          punto de entrada: temporada, catálogo, ficha y panel
-  js/casa3d.js          casa 3D con three.js (se carga aparte)
+  js/datos.js           CATÁLOGO: productos por espacio (SECTIONS), fichas (INFO) e íconos (ICONOS)
+  js/temporadas.js      nombres, color de acento y temporada inicial según el mes
+  js/productos.js       consultas puras sobre el catálogo (sin DOM)
+  js/tienda.js          punto de entrada: temporada, tarjetas de espacios, catálogo, buscador y ficha
   js/carrito.js         carrito, formulario y mensaje de WhatsApp
 scripts/
   validar-datos.mjs     revisa el catálogo: node scripts/validar-datos.mjs
@@ -47,9 +46,7 @@ scripts/
 - **Miniaturas:** si la foto de un producto es GIF, la tarjeta usa la primera foto fija de su ficha (`miniatura()` en `productos.js`). El GIF se ve dentro de la ficha.
 - **Preguntas frecuentes** (`#ayuda` en `index.html`): solo hechos confirmados. No prometas devoluciones, reembolsos ni garantías que no estén en Dropi.
 
-- **three.js 0.161.0** se carga desde `cdn.jsdelivr.net` con el `importmap` del `<head>`.
-- `tienda.js` importa `casa3d.js` de forma dinámica. Si la casa 3D falla (sin WebGL o sin CDN), el catálogo y el carrito siguen funcionando. **No importes `three` ni `casa3d.js` desde la tienda, el catálogo o el carrito.**
-- `tienda.js` es dueño del estado (temporada y espacio abierto) y avisa a la casa con `escuchar("temporada" | "espacio", fn)`. La casa llama a `abrirEspacio()` y `cerrarEspacio()`.
+- **Espacios con fotos (sin 3D):** la portada muestra una tarjeta por espacio con un mosaico de hasta 4 fotos de sus productos de la temporada (`fotosEspacio()` en `tienda.js`). Al tocarla se baja al bloque `#cat-<espacio>` del catálogo. La casa 3D (three.js) se quitó en nov. 2026 porque Junior prefirió un diseño más realista; sigue en el historial de git (`casa3d.js`, `casa3d-diorama.js`).
 - **Imágenes de productos:** se enlazan directo desde el CDN de Dropi (`https://d39ru7awumhhs2.cloudfront.net/ecuador/products/...`). Si una falla, `onerror` muestra el emoji del producto o la quita de la galería.
 
 ### Formato de un producto en `datos.js`
@@ -74,7 +71,7 @@ scripts/
 
 Las claves en el código para el cuarto y baño matrimonial son `papas` y `banoPapas`.
 
-Una etiqueta se oculta si su piso no se ve, si no corresponde a la temporada o si el espacio no tiene productos en esa temporada.
+Un espacio solo aparece (tarjeta y bloque del catálogo) si tiene productos en la temporada elegida. El árbol de Navidad (`navidad`) solo tiene productos en Navidad.
 
 ### Temporadas
 
@@ -111,8 +108,8 @@ Si cambias el precio de un producto que está dentro de un combo, recalcula el `
 
 - **Servidor local:** `npx serve .` (o cualquier servidor estático). Abrir `index.html` con doble clic **no** funciona, porque los módulos JS necesitan http.
 - Revisa en ancho de celular (390 px) y de escritorio (1366 px):
-  - las tres vistas de piso: Planta baja, Planta alta, Casa completa
-  - las cuatro temporadas; en Navidad aparece el árbol con su etiqueta verde
+  - las tarjetas de espacios: que cada una baje a su bloque del catálogo y se resalte
+  - las cuatro temporadas; en Navidad aparece el espacio "Árbol de Navidad"
   - que abran la ficha de un producto y la de un combo
   - agregar al carrito y enviar el pedido: debe abrir WhatsApp con el mensaje correcto
   - que no haya scroll horizontal ni errores en la consola

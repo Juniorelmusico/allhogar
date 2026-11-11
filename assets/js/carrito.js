@@ -146,9 +146,9 @@ function render(){
   // ---- carrito ----
   $("cartTitle").textContent = "Tu carrito";
   if (!cart.length){
-    body.innerHTML = `<div class="empty-cart"><div>🛒</div>Tu carrito está vacío.<br>Toca un cuarto de la casa y agrega productos.</div>`;
-    foot.innerHTML = `<button class="cta-btn" id="bExplorar">Explorar la casa</button>`;
-    $("bExplorar").onclick = () => { close(); document.getElementById("sceneWrap").scrollIntoView({behavior:"smooth"}); };
+    body.innerHTML = `<div class="empty-cart"><div>🛒</div>Tu carrito está vacío.<br>Elige un espacio y agrega productos.</div>`;
+    foot.innerHTML = `<button class="cta-btn" id="bExplorar">Ver los espacios</button>`;
+    $("bExplorar").onclick = () => { close(); document.getElementById("espaciosSec").scrollIntoView({behavior:"smooth"}); };
     return;
   }
   body.innerHTML = cart.map((i, k) => `

@@ -1,6 +1,6 @@
 # allhogar
 
-Tienda de productos para el hogar con casa 3D interactiva, catálogo por espacio, combos y pedido contra entrega por WhatsApp.
+Tienda de productos para el hogar con tarjetas por espacio de la casa, catálogo, combos y pedido contra entrega por WhatsApp.
 
 ## Estructura
 
@@ -10,7 +10,7 @@ assets/css/           estilos
 assets/img/           logo e imagen para compartir
 assets/js/config.js   número de WhatsApp
 assets/js/datos.js    catálogo de productos y fichas
-assets/js/…           tienda, casa 3D, carrito y temporadas
+assets/js/…           tienda, carrito, temporadas y medición
 ```
 
 ## Cambios frecuentes

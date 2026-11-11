@@ -1,5 +1,5 @@
 /* ==================== CONSULTAS DEL CATÁLOGO ====================
-   Funciones puras sobre los datos: no tocan la página ni la escena 3D. */
+   Funciones puras sobre los datos: no tocan la página. */
 import { SECTIONS, INFO } from "./datos.js";
 
 const CDN = "https://d39ru7awumhhs2.cloudfront.net/";
@@ -31,13 +31,6 @@ export function itemsFor(sec, temporada){
 /* espacios con al menos un producto en la temporada */
 export function espaciosCon(temporada){
   return Object.keys(SECTIONS).filter(k => itemsFor(k, temporada).length);
-}
-
-/* productos distintos de la temporada (un producto puede estar en varios espacios) */
-export function contarProductos(temporada){
-  const refs = new Set();
-  for (const k in SECTIONS) itemsFor(k, temporada).forEach(p => refs.add(p.ref));
-  return refs.size;
 }
 
 /* foto para la tarjeta del catálogo y el panel. Los GIF animados de Dropi pesan

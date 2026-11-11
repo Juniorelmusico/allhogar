@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>allhogar</title>
-<meta name="description" content="allhogar — todo para tu hogar, cuarto por cuarto. Explora la casa en 3D y descubre productos para sala, cocina, comedor, dormitorios, baños, patio y tu mascota. Envío gratis y pago contra entrega en Ecuador.">
+<meta name="description" content="allhogar — todo para tu hogar, cuarto por cuarto. Elige un espacio y descubre productos para sala, cocina, comedor, dormitorios, baños, patio y tu mascota. Envío gratis y pago contra entrega en Ecuador.">
 <meta name="theme-color" content="#E3AE4F">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_EC">
 <meta property="og:site_name" content="allhogar">
 <meta property="og:title" content="allhogar | Todo para tu hogar">
-<meta property="og:description" content="Entra a la casa en 3D y descubre los productos de cada espacio. Envío gratis y pagas al recibir.">
+<meta property="og:description" content="Elige un espacio de tu casa y descubre sus productos. Envío gratis y pagas al recibir.">
 <!-- imagen al compartir el enlace: si cambia el dominio, actualiza estas URL -->
 <meta property="og:url" content="https://extraordinary-alpaca-fdd668.netlify.app/">
 <meta property="og:image" content="https://extraordinary-alpaca-fdd668.netlify.app/assets/img/og-image.jpg">
@@ -22,15 +22,6 @@
 <link rel="apple-touch-icon" href="assets/img/logo.jpg">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 14 L88 46 H12 Z' fill='%23C57A52'/%3E%3Crect x='20' y='46' width='60' height='42' rx='4' fill='%236E8A5E'/%3E%3Crect x='41' y='70' width='18' height='18' rx='2' fill='%23E3AE4F'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="assets/css/estilos.css">
-<!-- three.js para la casa 3D (versión fija) -->
-<script type="importmap">
-{
-  "imports": {
-    "three": "https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js",
-    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/"
-  }
-}
-</script>
 </head>
 <body>
 
@@ -47,87 +38,40 @@
   </div>
 </div>
 
-<!-- ============ ESCENA 3D ============ -->
-<div class="scene-wrap" id="sceneWrap">
-  <canvas id="c"></canvas>
-
-  <div class="loading" id="loading">
-    <div class="box">
-      <div class="spinner"></div>
-      <div style="font-weight:700">Construyendo tu casa…</div>
-    </div>
-  </div>
-
-  <div class="pins" id="pins"></div>
-
-  <div class="hud">
-    <div class="hud-top">
-      <div class="stats">
-        <div class="stat"><div class="lbl">Espacios</div><div class="val" id="statEsp">15</div><div class="sub">toca uno en la casa</div></div>
-        <div class="stat"><div class="lbl">Productos</div><div class="val" id="statProd">—</div><div class="sub" id="statSeason">esta temporada</div></div>
-        <div class="stat"><div class="lbl">Entrega</div><div class="val">3-7 días</div><div class="sub">a todo el país</div></div>
-      </div>
-      <div class="panel" id="panel">
-        <div class="panel-head">
-          <div>
-            <div class="tag" id="pTag">Espacio</div>
-            <h3 id="pTitle">—</h3>
-            <div class="sub" id="pSub">—</div>
-          </div>
-          <button class="panel-close" id="pClose" aria-label="Cerrar">✕</button>
-        </div>
-        <div class="panel-body" id="pBody"></div>
-      </div>
-    </div>
-
-    <div class="hud-bottom">
-      <div class="track">
-        <div class="t-title">Así llega tu pedido</div>
-        <div class="steps">
-          <div class="step on"><div class="bub">📝</div><div class="txt">Pides<small>por WhatsApp</small></div></div>
-          <div class="bar"></div>
-          <div class="step on"><div class="bub">✅</div><div class="txt">Confirmamos<small>mismo día</small></div></div>
-          <div class="bar"></div>
-          <div class="step"><div class="bub">📦</div><div class="txt">Enviamos<small>24-48 h</small></div></div>
-          <div class="bar"></div>
-          <div class="step"><div class="bub">🏠</div><div class="txt">Recibes<small>3-7 días</small></div></div>
-        </div>
-      </div>
-
-      <div class="toolbar">
-        <div class="row" id="seasonRow">
-          <button class="chip active" data-season="primavera">🌸 Primavera</button>
-          <button class="chip" data-season="verano">☀️ Verano</button>
-          <button class="chip" data-season="otono">🍂 Otoño</button>
-          <button class="chip" data-season="invierno">🎄 Navidad</button>
-        </div>
-        <div class="row">
-          <button class="chip active" id="bPb">🪑 Planta baja</button>
-          <button class="chip" id="bPa">🛏️ Planta alta</button>
-          <button class="chip" id="bBoth">🏠 Casa completa</button>
-          <button class="chip" id="bRoof">⛺ Techo</button>
-          <button class="chip" id="bAuto">🔄 Girar</button>
-          <button class="chip active" id="bTema">🎨 Tema</button>
-          <button class="chip" id="bReset" title="Volver a la vista inicial" aria-label="Volver a la vista inicial">⟲ Inicio</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="hint" id="hint">Toca una etiqueta para ver sus productos</div>
-</div>
-
-<!-- botones para ir directo a un espacio (más fácil que buscar las etiquetas en la casa) -->
-<nav class="espacios" aria-label="Espacios de la casa">
-  <span class="espacios-t">Ir a:</span>
-  <div class="espacios-row" id="espacios"></div>
-</nav>
-
-<!-- ============ CONTENIDO ============ -->
-<section class="hero">
+<!-- ============ PORTADA ============ -->
+<section class="portada">
   <img class="hero-logo" src="assets/img/logo.jpg" alt="allhogar">
   <h1>Todo para tu hogar, cuarto por cuarto</h1>
-  <p>Recorre la casa, entra a cada espacio y descubre lo que necesitas. La colección cambia con cada estación.</p>
+  <p>Elige un espacio de tu casa y descubre lo que necesitas.</p>
+  <ul class="beneficios">
+    <li>🚚 <b>Envío gratis</b></li>
+    <li>💵 <b>Pagas al recibir</b></li>
+    <li>📦 <b>Llega en 3–7 días</b></li>
+  </ul>
+  <div class="temporadas" role="group" aria-label="Colección de temporada">
+    <span class="temporadas-t">Colección:</span>
+    <div class="row" id="seasonRow">
+      <button class="chip active" data-season="primavera">🌸 Primavera</button>
+      <button class="chip" data-season="verano">☀️ Verano</button>
+      <button class="chip" data-season="otono">🍂 Otoño</button>
+      <button class="chip" data-season="invierno">🎄 Navidad</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ESPACIOS DE LA CASA (tarjetas con fotos de los productos) ============ -->
+<section class="espacios-sec" id="espaciosSec" aria-labelledby="espTitulo">
+  <h2 class="sec-title" id="espTitulo">Explora por espacio</h2>
+  <p class="sec-sub" id="espSub">Toca un espacio para ver sus productos</p>
+  <div class="esp-grid" id="espGrid"></div>
+</section>
+
+<!-- ============ ASÍ LLEGA TU PEDIDO ============ -->
+<section class="pasos" aria-label="Así llega tu pedido">
+  <div class="paso"><span class="bub">📝</span><div><b>Pides</b><small>por WhatsApp</small></div></div>
+  <div class="paso"><span class="bub">✅</span><div><b>Confirmamos</b><small>el mismo día</small></div></div>
+  <div class="paso"><span class="bub">📦</span><div><b>Enviamos</b><small>en 24–48 h</small></div></div>
+  <div class="paso"><span class="bub">🏠</span><div><b>Recibes y pagas</b><small>en 3–7 días</small></div></div>
 </section>
 
 <section class="catalog">
