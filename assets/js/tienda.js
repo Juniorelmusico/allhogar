@@ -2,7 +2,7 @@
    Punto de entrada de la página: temporada, catálogo, ficha de producto
    y panel de cada espacio. No depende de la casa 3D: si la casa no carga
    (sin WebGL o sin conexión al CDN de three.js), el catálogo sigue funcionando. */
-import { SECTIONS } from "./datos.js";
+import { SECTIONS, ICONOS } from "./datos.js";
 import { SEASON_NAMES, SEASON_THEME, temporadaInicial } from "./temporadas.js";
 import { findByRef, itemsFor, infoFor, espaciosCon, contarProductos, miniatura } from "./productos.js";
 import { waLink } from "./config.js";
@@ -55,10 +55,28 @@ function cambiarTemporada(s){
   $("statSeason").textContent = SEASON_NAMES[s].toLowerCase();
 
   renderCatalog();
+  renderEspacios();
   if (espacioAbierto) abrirEspacio(espacioAbierto);
   updateStats();
   avisar("temporada", s);
 }
+
+/* botones "Ir a: Sala · Cocina…" debajo de la casa */
+function renderEspacios(){
+  $("espacios").innerHTML = espaciosCon(temporada).map(sec =>
+    `<button class="chip esp" data-espacio="${sec}">${ICONOS[sec] || ""} ${SECTIONS[sec].label}</button>`).join("");
+  marcarEspacio();
+}
+function marcarEspacio(){
+  document.querySelectorAll("#espacios [data-espacio]").forEach(b =>
+    b.classList.toggle("active", b.dataset.espacio === espacioAbierto));
+}
+$("espacios").addEventListener("click", ev => {
+  const b = ev.target.closest("[data-espacio]");
+  if (!b) return;
+  abrirEspacio(b.dataset.espacio);
+  $("sceneWrap").scrollIntoView({ behavior:"smooth", block:"start" });
+});
 
 function updateStats(){
   const esp = espaciosCon(temporada).length;
@@ -96,11 +114,13 @@ function abrirEspacio(sec){
       </div>`).join("")
     : `<p style="padding:14px;color:var(--ink-suave);font-style:italic">Sin productos en esta temporada.</p>`;
   $("panel").classList.add("show");
+  marcarEspacio();
   avisar("espacio", sec);
 }
 function cerrarEspacio(){
   espacioAbierto = null;
   $("panel").classList.remove("show");
+  marcarEspacio();
   avisar("espacio", null);
 }
 $("pClose").onclick = cerrarEspacio;
@@ -264,6 +284,7 @@ const tienda = {
 
 function sin3D(err){
   console.error(err);
+  document.querySelector(".espacios").hidden = true;      // sin casa, los botones de espacios no sirven
   $("loading").innerHTML =
     '<div class="box" style="max-width:320px;text-align:center;padding:20px">' +
     '<div style="font-size:2rem;margin-bottom:8px">🏠</div>' +
@@ -272,6 +293,10 @@ function sin3D(err){
     'Baja un poco y revisa el catálogo completo.</div></div>';
 }
 
-import("./casa3d.js")
+/* versión de la casa: ?casa=diorama carga el prototipo nuevo para compararlo */
+const versionCasa = new URLSearchParams(location.search).get("casa") === "diorama"
+  ? import("./casa3d-diorama.js")
+  : import("./casa3d.js");
+versionCasa
   .then(m => m.iniciarCasa(tienda))
   .catch(sin3D);

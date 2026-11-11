@@ -148,3 +148,11 @@ export const INFO = {
   "202079": {"d":"Squishy antiestrés con forma de medusa y purpurina.","b":["Suave y elástico para apretar","Purpurina que se mueve"],"g":["ecuador/products/202079/img_6ad4fe232bb024.85944113_0.jpg"]},
   "203285": {"d":"Adorno navideño con movimiento: Papá Noel entra y sale de la chimenea.","b":["Figura con movimiento","Decoración navideña divertida para el hogar"],"g":["ecuador/products/203285/8fe5d853-be3f-42a7-bec4-e570d69b5d94.png","ecuador/products/203285/4d372f53-8b72-45b5-b5a4-5fca80dee8ad.png","ecuador/products/203285/c2154270-4749-4bb5-8f4f-2acb6d105dd9.png"]}
 };
+
+/* ícono de cada espacio (etiquetas de la casa y botones de espacios) */
+export const ICONOS = {
+  sala:"🛋️", comedor:"🍽️", cocina:"🍳", banoSocial:"🚽",
+  nino:"🧸", banoNino:"🦆", nina:"🎀", banoNina:"🪞",
+  papas:"🛏️", banoPapas:"🚿", patio:"🌳", mascota:"🐶",
+  garaje:"🚗", bbq:"🍖", estudio:"📚", navidad:"🎄"
+};

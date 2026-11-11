@@ -4,7 +4,7 @@
    funcione aunque esta parte falle. */
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import { SECTIONS } from "./datos.js";
+import { SECTIONS, ICONOS } from "./datos.js";
 import { SEASON_THEME } from "./temporadas.js";
 import { itemsFor } from "./productos.js";
 
@@ -656,7 +656,13 @@ function selectRoom(sec){
 function alCambiarEspacio(sec){
   if (selected && selected !== sec) setTint(selected, false);
   selected = sec;
-  if (sec) setTint(sec, true);
+  if (sec){
+    // si el espacio está en un piso que no se ve (p. ej. se eligió desde los botones), se cambia de piso
+    const g = (roomRegistry[sec] || [])[0];
+    let oculto = false; for (let o = g; o; o = o.parent) if (!o.visible) oculto = true;
+    if (g && oculto) setFloorMode(g.userData.lvl === 1 ? "pa" : "pb");
+    setTint(sec, true);
+  }
   requestAnimationFrame(updateViewShift);
 }
 
@@ -793,12 +799,6 @@ document.getElementById("bReset").onclick = () => {
 };
 
 /* ==================== ETIQUETAS FLOTANTES ==================== */
-const PIN_ICON = {
-  sala:"🛋️", comedor:"🍽️", cocina:"🍳", banoSocial:"🚽",
-  nino:"🧸", banoNino:"🦆", nina:"🎀", banoNina:"🪞",
-  papas:"🛏️", banoPapas:"🚿", patio:"🌳", mascota:"🐶",
-  garaje:"🚗", bbq:"🍖", estudio:"📚", navidad:"🎄"
-};
 const pinHost = document.getElementById("pins");
 const pins = [];
 let viewW = 1, viewH = 1;
@@ -811,7 +811,7 @@ function buildPins(){
     const el = document.createElement("button");
     el.className = "pin";
     const label = SECTIONS[r.sec].label;
-    el.innerHTML = '<span class="pdot">' + (PIN_ICON[r.sec] || "•") + '</span>' +
+    el.innerHTML = '<span class="pdot">' + (ICONOS[r.sec] || "•") + '</span>' +
                    (r.bath ? '' : '<span class="ptxt">' + label + '</span>');
     el.title = label;
     el.setAttribute("aria-label", label);
@@ -856,10 +856,6 @@ function updatePins(){
   }
 }
 
-/* ==================== CATÁLOGO (abajo) ==================== */
-const cardIO = new IntersectionObserver(es => {
-  es.forEach(e => { if (e.isIntersecting){ e.target.classList.add("in"); cardIO.unobserve(e.target); } });
-}, { rootMargin:"0px 0px -6% 0px" });
 /* ==================== LOOP ==================== */
 let lastFit = null;
 function fitCamera(force){
