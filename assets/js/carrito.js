@@ -12,7 +12,7 @@ const PROVINCIAS = ["Azuay","Bolívar","Cañar","Carchi","Chimborazo","Cotopaxi"
 const KEY = "allhogar_cart_v1", KEYF = "allhogar_form_v1";
 
 /* Envío gratis: los precios ya incluyen el flete. Galápagos queda por confirmar
-   porque el flete allá no está cubierto. */
+   hasta confirmar el costo del flete allá. */
 const SIN_ENVIO_GRATIS = ["Galápagos"];
 const envioDe = prov => SIN_ENVIO_GRATIS.includes(prov) ? "por confirmar" : "GRATIS";
 const $ = id => document.getElementById(id);
@@ -97,7 +97,7 @@ function render(){
     $("cartTitle").textContent = "Datos de entrega";
     const f = load(KEYF, {});
     body.innerHTML = `
-      <div class="note-box">🚚 <b>Envío GRATIS</b> en Ecuador continental · 💵 <b>Pagas al recibir.</b> Te escribimos por WhatsApp para confirmar antes de despachar.</div>
+      <div class="note-box">🚚 <b>Envío GRATIS</b> · 💵 <b>Pagas al recibir.</b> Te escribimos por WhatsApp para confirmar antes de despachar.</div>
       <form id="oform" novalidate>
         <div class="f"><label for="fNom">Nombre y apellido</label>
           <input id="fNom" autocomplete="name" value="${esc(f.nombre||"")}"><div class="err">Escribe tu nombre completo</div></div>
@@ -111,7 +111,7 @@ function render(){
           <div class="f"><label for="fProv">Provincia</label>
             <select id="fProv"><option value="">Elige…</option>${PROVINCIAS.map(p =>
               `<option ${f.provincia===p?"selected":""}>${p}</option>`).join("")}</select><div class="err">Elige tu provincia</div>
-            <div class="prov-nota" id="provNota" hidden>El envío a Galápagos tiene costo: te lo confirmamos por WhatsApp.</div></div>
+            <div class="prov-nota" id="provNota" hidden>Para Galápagos, el envío se confirma por WhatsApp.</div></div>
           <div class="f"><label for="fCiu">Ciudad</label>
             <input id="fCiu" autocomplete="address-level2" value="${esc(f.ciudad||"")}"><div class="err">Escribe tu ciudad</div></div>
         </div>
