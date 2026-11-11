@@ -57,7 +57,7 @@ let selected = null, hovered = null;  // espacio resaltado / bajo el puntero
 function initThree(){
   // en celulares se dibuja con menos resolución y sombras más livianas:
   // se ve casi igual y va más fluido en equipos económicos
-  const celular = Math.min(window.innerWidth, window.innerHeight) < 760;
+  const celular = window.innerWidth < 760;
   renderer = new THREE.WebGLRenderer({ canvas, antialias:!celular || window.devicePixelRatio < 2, powerPreference:"high-performance" });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, celular ? 1.5 : 2));
   renderer.shadowMap.enabled = true;
