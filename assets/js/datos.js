@@ -16,12 +16,12 @@ export const SECTIONS = {
     {e:"🎗️", n:"Listón LED navideño", p:18.00, s:["invierno"], ref:"115776", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/115776/1761604853564426496_810086538424481_1536047958483523540_n.jpg"}
   ]},
   comedor:{ label:"Comedor", tag:"Planta baja", items:[
-    {e:"🍴", n:"Juego de cubiertos", p:51.00, s:["todas"], ref:"23137", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/23137/17225370234978904142143663204.jpg"},
+    {e:"🍴", n:"Juego de cubiertos", p:35.99, s:["todas"], ref:"23137", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/23137/17225370234978904142143663204.jpg"},
     {e:"🌡️", n:"Termo con pantalla digital", p:20.00, s:["otono", "invierno"], ref:"20428", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/20428/1720923928592108c0c5d864d22c138f212491b619.webp"}
   ]},
   cocina:{ label:"Cocina", tag:"Planta baja", items:[
-    {e:"🫙", n:"Contenedor de granos y cereales", p:69.00, s:["todas"], ref:"31612", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/31612/1765829622AMC%20-%202036.png"},
-    {e:"🍟", n:"Freidora de aire 6 litros", p:65.00, s:["todas"], ref:"87103", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/87103/1778106425FREIDORA_DE_AIRE_6_LITROS_ECONOMICA_87103.gif"},
+    {e:"🫙", n:"Contenedor de granos y cereales", p:37.99, s:["todas"], ref:"31612", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/31612/1765829622AMC%20-%202036.png"},
+    {e:"🍟", n:"Freidora de aire 6 litros", p:54.99, s:["todas"], ref:"87103", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/87103/1778106425FREIDORA_DE_AIRE_6_LITROS_ECONOMICA_87103.gif"},
     {e:"🔒", n:"Sellador de fundas portátil", p:19.99, s:["todas"], ref:"118767", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/118767/1770418128Imagen%20de%20portada%20novashop%20(2).png"},
     {e:"🔥", n:"Cocina eléctrica 2 hornillas", p:29.99, s:["todas"], ref:"99793", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/99793/1748449981Hornilla.jpg"},
     {e:"🥚", n:"Hervidor eléctrico de huevos", p:30.00, s:["otono", "invierno"], ref:"184976", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/184976/a76f2b99-bc41-447f-9f21-2b7c509799c4.png"}
@@ -31,12 +31,12 @@ export const SECTIONS = {
     {e:"🧴", n:"Dispensador automático de jabón", p:30.00, s:["todas"], ref:"161183", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/161183/17836282765062360691058085603.jpg"}
   ]},
   garaje:{ label:"Garaje", tag:"Planta baja", items:[
-    {e:"🧹", n:"Aspiradora eléctrica 3 en 1", p:35.00, s:["todas"], ref:"73285", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/73285/1778105343ASPIRADORA_ELECTRICA_3_EN_1_73285.gif"},
+    {e:"🧹", n:"Aspiradora eléctrica 3 en 1", p:27.99, s:["todas"], ref:"73285", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/73285/1778105343ASPIRADORA_ELECTRICA_3_EN_1_73285.gif"},
     {e:"📷", n:"Cámara de retroceso para auto", p:26.25, s:["todas"], ref:"121500", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/121500/17671125364.jpg"},
     {e:"🔧", n:"Escáner de auto Bluetooth", p:26.00, s:["todas"], ref:"8848", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/8848/1756141062SCANNER%205.webp"}
   ]},
   nino:{ label:"Cuarto de niño", tag:"Planta alta", items:[
-    {e:"🦖", n:"Pista de dinosaurios 40 piezas", p:45.00, s:["todas"], ref:"56938", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/56938/1730738972WhatsApp%20Image%202024-11-04%20at%2011.31.54%20(19).jpeg"},
+    {e:"🦖", n:"Pista de dinosaurios 40 piezas", p:29.99, s:["todas"], ref:"56938", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/56938/1730738972WhatsApp%20Image%202024-11-04%20at%2011.31.54%20(19).jpeg"},
     {e:"🚀", n:"Parlante proyector astronauta", p:30.00, s:["todas"], ref:"73379", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/73379/1778102326PARLANTE_PROYECTOR_ASTRONAUTA_73379.gif"},
     {e:"🧥", n:"Perchero vertical infantil", p:25.00, s:["todas"], ref:"175556", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/175556/fe6ecadd-71fe-4d37-814e-a10cbcbb8872.jpg"}
   ]},
@@ -46,7 +46,7 @@ export const SECTIONS = {
     {e:"🛁", n:"Combo Baño Ordenado: organizador + luz para inodoro", p:33.99, s:["todas"], ref:"C4:78303+113007", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/78303/1760835037photo_5170322755692899586_x.jpg", was:38.90, combo:true}
   ]},
   nina:{ label:"Cuarto de niña", tag:"Planta alta", items:[
-    {e:"🦋", n:"Alas de mariposa con luces", p:32.99, s:["primavera", "verano"], ref:"77138", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/77138/17392211271.jpg"},
+    {e:"🦋", n:"Alas de mariposa con luces", p:26.99, s:["primavera", "verano"], ref:"77138", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/77138/17392211271.jpg"},
     {e:"🧸", n:"Peluche capibara", p:21.00, s:["otono", "invierno"], ref:"202048", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/202048/img_6ad4fdc42a1730.16354957_0.jpg"},
     {e:"🐰", n:"Lonchera conejo con cubiertos", p:19.00, s:["primavera", "verano"], ref:"183129", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/183129/img_6a9ce462ef7e06.42217857_0.jpg"},
     {e:"🪼", n:"Squishy antiestrés medusa", p:18.00, s:["todas"], ref:"202079", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/202079/img_6ad4fe232bb024.85944113_0.jpg"}
@@ -56,7 +56,7 @@ export const SECTIONS = {
     {e:"🛁", n:"Combo Baño Ordenado: organizador + luz para inodoro", p:33.99, s:["todas"], ref:"C4:78303+113007", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/78303/1760835037photo_5170322755692899586_x.jpg", was:38.90, combo:true}
   ]},
   papas:{ label:"Cuarto matrimonial", tag:"Planta alta", items:[
-    {e:"🚪", n:"Ropero de 3 cuerpos", p:45.00, s:["todas"], ref:"109135", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/109135/17556388440ddced34-848c-42e7-bc71-818fdb90a8f5.jpg"},
+    {e:"🚪", n:"Ropero de 3 cuerpos", p:36.99, s:["todas"], ref:"109135", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/109135/17556388440ddced34-848c-42e7-bc71-818fdb90a8f5.jpg"},
     {e:"🛏️", n:"Almohada ortopédica ergonómica", p:30.00, s:["otono", "invierno"], ref:"84914", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/84914/1779498817ALMOHADA_ORTOPEDICA_ERGONÓMICA_84914.gif"},
     {e:"👟", n:"Perchero doble con zapatera", p:30.00, s:["todas"], ref:"142372", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/142372/17787754301778771294PERCHERO_DOBLE_CON_ZAPATERA_142372.gif"}
   ]},
@@ -64,27 +64,28 @@ export const SECTIONS = {
     {e:"🛁", n:"Dúo organizador de baño + esquinero", p:40.00, s:["todas"], ref:"146410", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/146410/2a04fc4e-7424-46d3-8a8f-e00c0c30d118.jpg"}
   ]},
   estudio:{ label:"Zona de estudio", tag:"Planta alta · niños", items:[
-    {e:"✏️", n:"Kit Escolar: pizarra + organizador + tablet", p:54.99, s:["todas"], ref:"C5:162070+125026+164149", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/162070/1783797405N1.jpg", was:65.00, combo:true},
+    {e:"✏️", n:"Kit Escolar: pizarra + organizador + tablet", p:48.99, s:["todas"], ref:"C5:162070+125026+164149", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/162070/1783797405N1.jpg", combo:true},
     {e:"📖", n:"Libro mágico de agua", p:34.00, s:["todas"], ref:"107484", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/107484/175399468611.jpeg"}
   ]},
   patio:{ label:"Patio", tag:"Exterior", items:[
-    {e:"☀️", n:"Lámpara solar con sensor", p:45.00, s:["todas"], ref:"124396", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/124396/1778107289LAMPARA_SOLAR_DE_SENSOR_124396.gif"},
+    {e:"☀️", n:"Lámpara solar con sensor", p:40.99, s:["todas"], ref:"124396", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/124396/1778107289LAMPARA_SOLAR_DE_SENSOR_124396.gif"},
     {e:"🌊", n:"Manguera expandible 30 m", p:20.00, s:["primavera", "verano"], ref:"104210", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/104210/1778215197MANGUERA_EXPANDIBLE_30_METROS_104210.gif"},
     {e:"✨", n:"Kit 5 bastones de luces solares", p:24.00, s:["invierno"], ref:"180327", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/180327/3e3985d0-523b-4125-8477-a9bbebece5d5.gif"},
     {e:"⛄", n:"Muñecos navideños x3", p:50.00, s:["invierno"], ref:"53043", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/53043/17294767945080165284706364864.jpg"}
   ]},
   bbq:{ label:"Zona BBQ", tag:"Exterior", items:[
     {e:"🍖", n:"Combo Parrillada: parrilla plegable + mesa", p:49.99, s:["todas"], ref:"C6:118009+172012", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/118009/2ec093d1-eae2-4786-931a-24a2aee0395e.jpg", was:58.60, combo:true},
+    {e:"🔥", n:"Parrilla plegable", p:23.60, s:["todas"], ref:"118009", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/118009/2ec093d1-eae2-4786-931a-24a2aee0395e.jpg"},
     {e:"🏕️", n:"Mesa plegable de camping", p:35.00, s:["todas"], ref:"172012", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/172012/37f3db0e-9df9-4a95-869a-c96222c5e6d0.jpg"}
   ]},
   mascota:{ label:"Zona de mascota", tag:"Exterior", items:[
-    {e:"🎒", n:"Mochila de transporte para mascotas", p:42.00, s:["todas"], ref:"73371", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/73371/1778217174MOCHILA_DE_TRANSPORTE_PARA_MASCOTAS_73371.gif"},
+    {e:"🎒", n:"Mochila de transporte para mascotas", p:33.99, s:["todas"], ref:"73371", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/73371/1778217174MOCHILA_DE_TRANSPORTE_PARA_MASCOTAS_73371.gif"},
     {e:"🐾", n:"Combo Mascota Feliz: rascador + cepillo de vapor", p:29.99, s:["todas"], ref:"C2:187738+115656", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/187738/f6594989-2853-43b8-aac8-bf88d7a38c1e.png", was:34.90, combo:true},
     {e:"💨", n:"Cepillo de vapor 3 en 1", p:19.90, s:["todas"], ref:"115656", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/115656/1761436820cepillo-vapor-1-ezgif.com-optiwebp.webp"},
     {e:"🐱", n:"Rascador para mascotas", p:15.00, s:["todas"], ref:"187738", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/187738/f6594989-2853-43b8-aac8-bf88d7a38c1e.png"}
   ]},
   navidad:{ label:"Árbol de Navidad", tag:"Temporada navideña", items:[
-    {e:"🎄", n:"Kit Navideño: Papá Noel + lazo + luces", p:64.99, s:["invierno"], ref:"C1:203285+187782+180327", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/203285/8fe5d853-be3f-42a7-bec4-e570d69b5d94.png", was:73.00, combo:true},
+    {e:"🎄", n:"Kit Navideño: Papá Noel + lazo + luces", p:56.99, s:["invierno"], ref:"C1:203285+187782+180327", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/203285/8fe5d853-be3f-42a7-bec4-e570d69b5d94.png", was:73.00, combo:true},
     {e:"🎄", n:"Tarro de 20 esferas navideñas azules", p:26.99, s:["invierno"], ref:"197595", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/197595/0a63e17a-f231-468e-a076-a779511b39bd.jpg"},
     {e:"🎀", n:"Lazo grande navideño", p:29.00, s:["invierno"], ref:"187782", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/187782/d18102bb-78a0-46ec-be7d-42d20bddbeb2.jpg"},
     {e:"🎅", n:"Adorno Papá Noel en chimenea", p:20.00, s:["invierno"], ref:"203285", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/203285/8fe5d853-be3f-42a7-bec4-e570d69b5d94.png"},

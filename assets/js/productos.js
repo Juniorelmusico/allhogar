@@ -53,7 +53,9 @@ export function infoFor(p){
   return {
     d: "Combo con " + parts.length + " productos en un solo envío.",
     b: parts.map(x => (x.it ? x.it.n : "Producto") + (x.i ? ": " + x.i.d : "")),
-    m: "Precio por separado: $" + p.was.toFixed(2) + " · Ahorras $" + (p.was - p.p).toFixed(2) + ".",
+    m: typeof p.was === "number" && p.was > p.p
+      ? "Precio por separado: $" + p.was.toFixed(2) + " · Ahorras $" + (p.was - p.p).toFixed(2) + "."
+      : "",
     g: parts.flatMap(x => x.i ? x.i.g.slice(0, 2).map(gUrl) : [])
   };
 }

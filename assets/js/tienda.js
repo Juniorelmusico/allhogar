@@ -27,8 +27,11 @@ function media(p, cls){
   return `<span class="${cls} has-img"><img src="${attr(p.img)}" alt="" loading="lazy" referrerpolicy="no-referrer"
            onerror="this.parentNode.classList.remove('has-img');this.replaceWith(document.createTextNode('${p.e}'))"></span>`;
 }
+/* un combo solo muestra precio tachado y ahorro si "was" está definido y es comprobable */
+const tieneAhorro = p => p.combo && typeof p.was === "number" && p.was > p.p;
+
 function priceHTML(p){
-  return p.combo
+  return tieneAhorro(p)
     ? `<span class="was">$${p.was.toFixed(2)}</span> $${p.p.toFixed(2)}`
     : `$${p.p.toFixed(2)}`;
 }
@@ -36,7 +39,8 @@ function addBtn(p, cls){
   return `<button class="${cls}" data-add="${attr(p.n)}" data-price="${p.p}" data-emo="${attr(p.e)}" data-ref="${attr(p.ref || "")}">Agregar</button>`;
 }
 function comboTag(p){
-  return p.combo ? `<span class="combo-tag">COMBO · Ahorras $${(p.was - p.p).toFixed(2)}</span>` : "";
+  if (!p.combo) return "";
+  return `<span class="combo-tag">COMBO${tieneAhorro(p) ? " · Ahorras $" + (p.was - p.p).toFixed(2) : ""}</span>`;
 }
 
 /* ==================== TEMPORADA ==================== */
