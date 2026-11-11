@@ -11,7 +11,7 @@ export const SECTIONS = {
     {e:"🌷", n:"Lámpara de tulipanes LED", p:17.25, s:["primavera"], ref:"113729", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/113729/1759872973Screenshot_7375.png"},
     {e:"🦟", n:"Cortina antimosquitos", p:15.00, s:["verano"], ref:"175289", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/175289/74049eb2-b38e-434f-b7f9-7393d48e7310.jpg"},
     {e:"🌙", n:"Combo Noches Tranquilas: lámpara + cortina antimosquitos", p:27.99, s:["primavera", "verano"], ref:"C3:113729+175289", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/113729/1759872973Screenshot_7375.png", was:32.25, combo:true},
-    {e:"🎄", n:"Tarro de 20 bombillos navideños", p:26.99, s:["invierno"], ref:"197595", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/197595/0a63e17a-f231-468e-a076-a779511b39bd.jpg"},
+    {e:"🎄", n:"Tarro de 20 esferas navideñas azules", p:26.99, s:["invierno"], ref:"197595", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/197595/0a63e17a-f231-468e-a076-a779511b39bd.jpg"},
     {e:"🎅", n:"Adorno Papá Noel en chimenea", p:20.00, s:["invierno"], ref:"203285", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/203285/8fe5d853-be3f-42a7-bec4-e570d69b5d94.png"},
     {e:"🎗️", n:"Listón LED navideño", p:18.00, s:["invierno"], ref:"115776", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/115776/1761604853564426496_810086538424481_1536047958483523540_n.jpg"}
   ]},
@@ -85,7 +85,7 @@ export const SECTIONS = {
   ]},
   navidad:{ label:"Árbol de Navidad", tag:"Temporada navideña", items:[
     {e:"🎄", n:"Kit Navideño: Papá Noel + lazo + luces", p:64.99, s:["invierno"], ref:"C1:203285+187782+180327", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/203285/8fe5d853-be3f-42a7-bec4-e570d69b5d94.png", was:73.00, combo:true},
-    {e:"🎄", n:"Tarro de 20 bombillos navideños", p:26.99, s:["invierno"], ref:"197595", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/197595/0a63e17a-f231-468e-a076-a779511b39bd.jpg"},
+    {e:"🎄", n:"Tarro de 20 esferas navideñas azules", p:26.99, s:["invierno"], ref:"197595", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/197595/0a63e17a-f231-468e-a076-a779511b39bd.jpg"},
     {e:"🎀", n:"Lazo grande navideño", p:29.00, s:["invierno"], ref:"187782", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/187782/d18102bb-78a0-46ec-be7d-42d20bddbeb2.jpg"},
     {e:"🎅", n:"Adorno Papá Noel en chimenea", p:20.00, s:["invierno"], ref:"203285", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/203285/8fe5d853-be3f-42a7-bec4-e570d69b5d94.png"},
     {e:"🎗️", n:"Listón LED navideño", p:18.00, s:["invierno"], ref:"115776", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/115776/1761604853564426496_810086538424481_1536047958483523540_n.jpg"},

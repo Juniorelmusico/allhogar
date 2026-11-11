@@ -3,14 +3,14 @@
    y panel de cada espacio. No depende de la casa 3D: si la casa no carga
    (sin WebGL o sin conexión al CDN de three.js), el catálogo sigue funcionando. */
 import { SECTIONS } from "./datos.js";
-import { SEASON_NAMES, SEASON_THEME } from "./temporadas.js";
+import { SEASON_NAMES, SEASON_THEME, temporadaInicial } from "./temporadas.js";
 import { findByRef, itemsFor, infoFor, espaciosCon, contarProductos } from "./productos.js";
 import { waLink } from "./config.js";
 
 const $ = id => document.getElementById(id);
 
 /* ==================== ESTADO ==================== */
-let temporada = "primavera";
+let temporada = temporadaInicial();       // según el mes o ?temporada= en el enlace
 let espacioAbierto = null;                 // espacio cuyo panel está abierto
 let temaOn = true;                         // colores de temporada en toda la página
 
@@ -194,6 +194,7 @@ document.querySelector("#det .det-gal").addEventListener("scroll", e => {
 /* ==================== ENLACES DE WHATSAPP ==================== */
 $("waTop").href = waLink();
 $("waBottom").href = waLink();
+$("waFloat").href = waLink();
 
 /* ==================== ARRANQUE ==================== */
 cambiarTemporada(temporada);

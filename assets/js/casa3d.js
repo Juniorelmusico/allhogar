@@ -901,6 +901,7 @@ function animate(){
 /* ==================== ARRANQUE ==================== */
 export function iniciarCasa(api){
   tienda = api;
+  season = tienda.temporada();
   initThree();
   buildWorld();
   buildSnow();
