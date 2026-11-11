@@ -10,6 +10,11 @@ const PROVINCIAS = ["Azuay","Bolívar","Cañar","Carchi","Chimborazo","Cotopaxi"
   "Galápagos","Guayas","Imbabura","Loja","Los Ríos","Manabí","Morona Santiago","Napo","Orellana","Pastaza",
   "Pichincha","Santa Elena","Santo Domingo de los Tsáchilas","Sucumbíos","Tungurahua","Zamora Chinchipe"];
 const KEY = "allhogar_cart_v1", KEYF = "allhogar_form_v1";
+
+/* Envío gratis: los precios ya incluyen el flete. Galápagos queda por confirmar
+   porque el flete allá no está cubierto. */
+const SIN_ENVIO_GRATIS = ["Galápagos"];
+const envioDe = prov => SIN_ENVIO_GRATIS.includes(prov) ? "por confirmar" : "GRATIS";
 const $ = id => document.getElementById(id);
 const esc = t => String(t).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const money = n => "$" + n.toFixed(2);
@@ -92,7 +97,7 @@ function render(){
     $("cartTitle").textContent = "Datos de entrega";
     const f = load(KEYF, {});
     body.innerHTML = `
-      <div class="note-box">💵 <b>Pago contra entrega:</b> pagas cuando recibes. El costo de envío te lo confirmamos por WhatsApp antes de despachar.</div>
+      <div class="note-box">🚚 <b>Envío GRATIS</b> en Ecuador continental · 💵 <b>Pagas al recibir.</b> Te escribimos por WhatsApp para confirmar antes de despachar.</div>
       <form id="oform" novalidate>
         <div class="f"><label for="fNom">Nombre y apellido</label>
           <input id="fNom" autocomplete="name" value="${esc(f.nombre||"")}"><div class="err">Escribe tu nombre completo</div></div>
@@ -105,7 +110,8 @@ function render(){
         <div class="row2">
           <div class="f"><label for="fProv">Provincia</label>
             <select id="fProv"><option value="">Elige…</option>${PROVINCIAS.map(p =>
-              `<option ${f.provincia===p?"selected":""}>${p}</option>`).join("")}</select><div class="err">Elige tu provincia</div></div>
+              `<option ${f.provincia===p?"selected":""}>${p}</option>`).join("")}</select><div class="err">Elige tu provincia</div>
+            <div class="prov-nota" id="provNota" hidden>El envío a Galápagos tiene costo: te lo confirmamos por WhatsApp.</div></div>
           <div class="f"><label for="fCiu">Ciudad</label>
             <input id="fCiu" autocomplete="address-level2" value="${esc(f.ciudad||"")}"><div class="err">Escribe tu ciudad</div></div>
         </div>
@@ -115,14 +121,23 @@ function render(){
           <input id="fRef" placeholder="Ej: casa blanca junto a la farmacia" value="${esc(f.referencia||"")}"></div>
       </form>`;
     foot.innerHTML = `
+      <div class="sum"><span class="muted">Envío</span><span class="envio-val" id="envioVal">GRATIS</span></div>
       <div class="sum total"><span>Total productos</span><span>${money(total())}</span></div>
       <button class="cta-btn wa-green" id="bEnviar">Enviar pedido por WhatsApp</button>
       <button class="link-btn" id="bVolver">← Volver al carrito</button>`;
     $("bVolver").onclick = () => { step = "cart"; render(); };
     $("bEnviar").onclick = submit;
     const clear = e => { const f = e.target.closest(".f"); if (f) f.classList.remove("bad"); };
+    const verEnvio = () => {
+      const envio = envioDe($("fProv").value);
+      $("envioVal").textContent = envio;
+      $("envioVal").classList.toggle("muted", envio !== "GRATIS");
+      $("provNota").hidden = envio === "GRATIS";
+    };
     $("oform").addEventListener("input", clear);
     $("oform").addEventListener("change", clear);
+    $("fProv").addEventListener("change", verEnvio);
+    verEnvio();
     return;
   }
   // ---- carrito ----
@@ -141,7 +156,7 @@ function render(){
     </div>`).join("");
   foot.innerHTML = `
     <div class="sum"><span class="muted">Productos (${count()})</span><span>${money(total())}</span></div>
-    <div class="sum"><span class="muted">Envío</span><span class="muted">Se confirma por WhatsApp</span></div>
+    <div class="sum"><span class="muted">Envío</span><span class="envio-val">GRATIS</span></div>
     <div class="sum total"><span>Total</span><span>${money(total())}</span></div>
     <button class="cta-btn" id="bComprar">Continuar · Pago contra entrega</button>`;
   $("bComprar").onclick = () => { step = "form"; render(); };
@@ -179,7 +194,8 @@ Referencia: ${d.referencia || "-"}
 Productos:
 ${lineas}
 Total productos: $${total().toFixed(2)}
-Pago: contra entrega`;
+Pago: contra entrega
+Envío: ${envioDe(d.provincia)}`;          // línea nueva al final: el panel de pedidos lee las de arriba
   const url = "https://wa.me/" + WA + "?text=" + encodeURIComponent(msg);
   lastOrder = { codigo, nombre: d.nombre, url };
   window.open(url, "_blank", "noopener");

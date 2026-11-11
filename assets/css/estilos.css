@@ -110,6 +110,9 @@ svg{display:block}
 .f.bad .err{display:block}
 .f.bad input,.f.bad select,.f.bad textarea{border-color:#B23A3A}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.envio-val{font-weight:800;color:var(--olivo-osc)}
+.envio-val.muted{color:var(--ink-suave);font-weight:600}
+.prov-nota{font-size:.74rem;color:var(--terracota-osc);margin-top:4px;line-height:1.3}
 .note-box{background:var(--mostaza-claro);border-radius:12px;padding:10px 12px;font-size:.8rem;margin-bottom:12px;line-height:1.4;color:#3B3027}
 .done{text-align:center;padding:30px 6px}
 .done .big{font-size:3rem}

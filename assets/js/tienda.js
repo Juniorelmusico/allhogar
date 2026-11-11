@@ -149,7 +149,7 @@ function openDetail(ref){
     ${i.d ? `<p class="det-d">${i.d}</p>` : ""}
     ${i.b.length ? `<ul class="det-b">${i.b.map(x => `<li>${x}</li>`).join("")}</ul>` : ""}
     ${i.m ? `<p class="det-m">${i.m}</p>` : ""}
-    <div class="det-trust"><span>💵 Pagas al recibir</span><span>🚚 Entrega en 3–7 días</span><span>📦 Envío a todo el país</span></div>
+    <div class="det-trust"><span>💵 Pagas al recibir</span><span>🚚 Entrega en 3–7 días</span><span>📦 Envío gratis</span></div>
     ${addBtn(p, "go det-add")}`;
   el.querySelector(".det-gal").scrollLeft = 0;
   el.querySelector(".det-info").scrollTop = 0;
