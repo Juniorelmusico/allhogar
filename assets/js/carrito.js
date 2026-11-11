@@ -4,6 +4,7 @@
    OJO: el panel privado de pedidos lee este mensaje; si cambias sus líneas,
    revisa que el panel lo siga entendiendo. */
 import { WHATSAPP as WA } from "./config.js";
+import { findByRef, findByName } from "./productos.js";
 
 const PROVINCIAS = ["Azuay","Bolívar","Cañar","Carchi","Chimborazo","Cotopaxi","El Oro","Esmeraldas",
   "Galápagos","Guayas","Imbabura","Loja","Los Ríos","Manabí","Morona Santiago","Napo","Orellana","Pastaza",
@@ -16,7 +17,7 @@ const money = n => "$" + n.toFixed(2);
 function load(k, d){ try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch(e){ return d; } }
 function save(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} }
 
-let cart = load(KEY, []);          // [{n, p, e, q}]
+let cart = load(KEY, []);          // [{n, p, e, ref, q}]
 let step = "cart";                 // cart | form | done
 let lastOrder = null;
 
@@ -25,8 +26,27 @@ const total = () => cart.reduce((a, i) => a + i.q * i.p, 0);
 
 function persist(){ save(KEY, cart); $("cartCount").textContent = count(); }
 
+/* El carrito guardado puede ser de días atrás: el nombre, el precio y el emoji
+   se toman siempre del catálogo actual (datos.js), buscando por ref.
+   Lo que ya no está en el catálogo se quita. Devuelve los nombres quitados. */
+function sincronizar(){
+  const quitados = [], alDia = [];
+  for (const i of cart){
+    const p = (i.ref && findByRef(i.ref)) || findByName(i.n);
+    if (!p){ quitados.push(i.n); continue; }
+    const ya = alDia.find(x => x.ref === p.ref);
+    if (ya) ya.q += i.q;
+    else alDia.push({ n: p.n, p: p.p, e: p.e, ref: p.ref, q: i.q });
+  }
+  cart = alDia;
+  persist();
+  if (quitados.length) toast("Ya no está disponible: " + quitados.join(", "));
+}
+
 function add(n, p, e, ref){
-  const it = cart.find(i => i.n === n);
+  const prod = findByRef(ref);
+  if (prod){ n = prod.n; p = prod.p; e = prod.e; }
+  const it = cart.find(i => (ref && i.ref === ref) || i.n === n);
   if (it) it.q++; else cart.push({ n, p: Number(p), e, ref: ref || "", q: 1 });
   persist();
   const b = $("cartBtn"); b.classList.remove("bump"); void b.offsetWidth; b.classList.add("bump");
@@ -49,7 +69,8 @@ function toast(msg){
 }
 
 function open(){ $("cart").classList.add("show"); $("cartOv").classList.add("show");
-                 $("cart").setAttribute("aria-hidden","false"); if (step === "done") step = "cart"; render(); }
+                 $("cart").setAttribute("aria-hidden","false"); if (step === "done") step = "cart";
+                 sincronizar(); render(); }
 function close(){ $("cart").classList.remove("show"); $("cartOv").classList.remove("show");
                   $("cart").setAttribute("aria-hidden","true"); }
 
@@ -178,4 +199,4 @@ document.addEventListener("keydown", e => { if (e.key === "Escape") close(); });
 $("cartBtn").onclick = open;
 $("cartX").onclick = close;
 $("cartOv").onclick = close;
-persist();
+sincronizar();

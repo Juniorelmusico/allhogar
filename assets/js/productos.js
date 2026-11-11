@@ -14,6 +14,15 @@ export function findByRef(ref){
   return null;
 }
 
+/* busca por nombre exacto (solo para carritos viejos guardados sin ref) */
+export function findByName(nombre){
+  for (const k in SECTIONS){
+    const it = SECTIONS[k].items.find(p => p.n === nombre);
+    if (it) return it;
+  }
+  return null;
+}
+
 /* productos de un espacio que se muestran en la temporada dada */
 export function itemsFor(sec, temporada){
   return SECTIONS[sec].items.filter(p => p.s.includes("todas") || p.s.includes(temporada));
