@@ -5,6 +5,7 @@
    revisa que el panel lo siga entendiendo. */
 import { WHATSAPP as WA } from "./config.js";
 import { findByRef, findByName } from "./productos.js";
+import { evento } from "./analitica.js";
 
 const PROVINCIAS = ["Azuay","Bolívar","Cañar","Carchi","Chimborazo","Cotopaxi","El Oro","Esmeraldas",
   "Galápagos","Guayas","Imbabura","Loja","Los Ríos","Manabí","Morona Santiago","Napo","Orellana","Pastaza",
@@ -54,6 +55,7 @@ function add(n, p, e, ref){
   const it = cart.find(i => (ref && i.ref === ref) || i.n === n);
   if (it) it.q++; else cart.push({ n, p: Number(p), e, ref: ref || "", q: 1 });
   persist();
+  evento("agregar", { valor: Number(p), ref, nombre: n });
   const b = $("cartBtn"); b.classList.remove("bump"); void b.offsetWidth; b.classList.add("bump");
   toast("Agregado: " + n);
 }
@@ -102,8 +104,8 @@ function render(){
         <div class="f"><label for="fNom">Nombre y apellido</label>
           <input id="fNom" autocomplete="name" value="${esc(f.nombre||"")}"><div class="err">Escribe tu nombre completo</div></div>
         <div class="row2">
-          <div class="f"><label for="fCed">Cédula</label>
-            <input id="fCed" inputmode="numeric" maxlength="10" value="${esc(f.cedula||"")}"><div class="err">10 dígitos</div></div>
+          <div class="f"><label for="fCed">Cédula (opcional)</label>
+            <input id="fCed" inputmode="numeric" maxlength="10" value="${esc(f.cedula||"")}"><div class="err">Si la escribes, debe tener 10 dígitos</div></div>
           <div class="f"><label for="fTel">Celular</label>
             <input id="fTel" inputmode="tel" autocomplete="tel" placeholder="09XXXXXXXX" value="${esc(f.telefono||"")}"><div class="err">Ej: 0991234567</div></div>
         </div>
@@ -119,6 +121,7 @@ function render(){
           <textarea id="fDir" autocomplete="street-address">${esc(f.direccion||"")}</textarea><div class="err">Escribe tu dirección</div></div>
         <div class="f"><label for="fRef">Referencia (opcional)</label>
           <input id="fRef" placeholder="Ej: casa blanca junto a la farmacia" value="${esc(f.referencia||"")}"></div>
+        <p class="privacidad">🔒 Usamos tus datos solo para coordinar y entregar tu pedido. Los compartimos únicamente con el proveedor y la transportadora que lo lleva a tu casa. Se guardan en este navegador para que no tengas que escribirlos otra vez. <a href="#ayuda-datos" data-cerrar-carrito>Más información</a></p>
       </form>`;
     foot.innerHTML = `
       <div class="sum"><span class="muted">Envío</span><span class="envio-val" id="envioVal">GRATIS</span></div>
@@ -159,7 +162,7 @@ function render(){
     <div class="sum"><span class="muted">Envío</span><span class="envio-val">GRATIS</span></div>
     <div class="sum total"><span>Total</span><span>${money(total())}</span></div>
     <button class="cta-btn" id="bComprar">Continuar · Pago contra entrega</button>`;
-  $("bComprar").onclick = () => { step = "form"; render(); };
+  $("bComprar").onclick = () => { step = "form"; render(); evento("datos_entrega", { valor: total() }); };
 }
 
 function val(id){ return (document.getElementById(id).value || "").trim(); }
@@ -172,7 +175,7 @@ function submit(){
   };
   let ok = true;
   ok = mark("fNom", d.nombre.split(/\s+/).length >= 2) && ok;
-  ok = mark("fCed", /^\d{10}$/.test(d.cedula)) && ok;
+  ok = mark("fCed", d.cedula === "" || /^\d{10}$/.test(d.cedula)) && ok;   // opcional: Dropi no la exige
   ok = mark("fTel", /^09\d{8}$/.test(d.telefono)) && ok;
   ok = mark("fProv", !!d.provincia) && ok;
   ok = mark("fCiu", d.ciudad.length >= 2) && ok;
@@ -185,7 +188,7 @@ function submit(){
   const msg =
 `🛒 PEDIDO ALLHOGAR ${codigo}
 Nombre: ${d.nombre}
-Cédula: ${d.cedula}
+Cédula: ${d.cedula || "-"}
 Teléfono: ${d.telefono}
 Provincia: ${d.provincia}
 Ciudad: ${d.ciudad}
@@ -198,6 +201,7 @@ Pago: contra entrega
 Envío: ${envioDe(d.provincia)}`;          // línea nueva al final: el panel de pedidos lee las de arriba
   const url = "https://wa.me/" + WA + "?text=" + encodeURIComponent(msg);
   lastOrder = { codigo, nombre: d.nombre, url };
+  evento("pedido", { valor: total() });
   window.open(url, "_blank", "noopener");
   cart = []; persist();
   step = "done"; render();
@@ -207,6 +211,12 @@ Envío: ${envioDe(d.provincia)}`;          // línea nueva al final: el panel de
 document.addEventListener("click", ev => {
   const a = ev.target.closest("[data-add]");
   if (a){ ev.preventDefault(); ev.stopPropagation(); add(a.dataset.add, a.dataset.price, a.dataset.emo, a.dataset.ref); return; }
+  if (ev.target.closest("[data-cerrar-carrito]")) close();     // enlaces del carrito que llevan a la página
+  if (ev.target.closest("[data-borrar-datos]")){
+    try { localStorage.removeItem(KEYF); } catch(e){}
+    toast("Listo: borramos tus datos de entrega de este navegador");
+    return;
+  }
   const inc = ev.target.closest("[data-inc]"), dec = ev.target.closest("[data-dec]");
   if (inc){ cart[+inc.dataset.inc].q++; persist(); render(); }
   if (dec){ const k = +dec.dataset.dec; cart[k].q--; if (cart[k].q <= 0) cart.splice(k, 1); persist(); render(); }

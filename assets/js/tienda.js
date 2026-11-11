@@ -4,8 +4,9 @@
    (sin WebGL o sin conexión al CDN de three.js), el catálogo sigue funcionando. */
 import { SECTIONS } from "./datos.js";
 import { SEASON_NAMES, SEASON_THEME, temporadaInicial } from "./temporadas.js";
-import { findByRef, itemsFor, infoFor, espaciosCon, contarProductos } from "./productos.js";
+import { findByRef, itemsFor, infoFor, espaciosCon, contarProductos, miniatura } from "./productos.js";
 import { waLink } from "./config.js";
+import { evento } from "./analitica.js";
 
 const $ = id => document.getElementById(id);
 
@@ -23,8 +24,9 @@ const attr = t => String(t).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace
 
 function media(p, cls){
   const emo = `<span class="${cls}">${p.e}</span>`;
-  if (!p.img) return emo;
-  return `<span class="${cls} has-img"><img src="${attr(p.img)}" alt="" loading="lazy" referrerpolicy="no-referrer"
+  const src = miniatura(p);
+  if (!src) return emo;
+  return `<span class="${cls} has-img"><img src="${attr(src)}" alt="${attr(p.n)}" loading="lazy" decoding="async" referrerpolicy="no-referrer"
            onerror="this.parentNode.classList.remove('has-img');this.replaceWith(document.createTextNode('${p.e}'))"></span>`;
 }
 /* un combo solo muestra precio tachado y ahorro si "was" está definido y es comprobable */
@@ -108,31 +110,69 @@ const cardIO = new IntersectionObserver(es => {
   es.forEach(e => { if (e.isIntersecting){ e.target.classList.add("in"); cardIO.unobserve(e.target); } });
 }, { rootMargin:"0px 0px -6% 0px" });
 
+function cardHTML(p, i){
+  return `
+    <div class="card${p.combo ? " is-combo" : ""}" style="transition-delay:${Math.min(i, 8) * 55}ms">
+      <div class="tap" data-detail="${attr(p.ref)}" role="button" tabindex="0">
+        ${media(p, "emoji")}
+        ${comboTag(p)}
+        <h4>${p.n}</h4>
+        <p class="desc">${infoFor(p).d}</p>
+      </div>
+      <div class="price">${priceHTML(p)}</div>
+      <div class="card-act">${addBtn(p, "add")}<button class="vermas" data-detail="${attr(p.ref)}">Ver más</button></div>
+    </div>`;
+}
+
+/* búsqueda sin tildes ni mayúsculas, en nombre y descripción, dentro de la temporada */
+let busqueda = "";
+const normal = t => String(t).normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+
+function resultados(q){
+  const palabras = normal(q).split(/\s+/).filter(Boolean);
+  const vistos = new Set(), lista = [];
+  for (const id in SECTIONS){
+    for (const p of itemsFor(id, temporada)){
+      if (vistos.has(p.ref)) continue;
+      const texto = normal(p.n + " " + infoFor(p).d + " " + SECTIONS[id].label);
+      if (palabras.every(w => texto.includes(w))){ vistos.add(p.ref); lista.push(p); }
+    }
+  }
+  return lista;
+}
+
 function renderCatalog(){
-  $("catalog").innerHTML = Object.entries(SECTIONS).filter(([id]) => itemsFor(id, temporada).length).map(([id, sec]) => {
-    const items = itemsFor(id, temporada);
-    return `
-      <article class="block" id="cat-${id}">
-        <h3>${sec.label}</h3>
-        <p class="note">${sec.tag} · ${SEASON_NAMES[temporada]} · ${items.length} productos</p>
+  if (busqueda){
+    const lista = resultados(busqueda);
+    $("catalog").innerHTML = `
+      <article class="block">
+        <h3>Resultados para «${attr(busqueda)}»</h3>
+        <p class="note">${lista.length} producto${lista.length === 1 ? "" : "s"} en ${SEASON_NAMES[temporada].toLowerCase()}</p>
         <div class="grid">
-          ${items.map((p, i) => `
-            <div class="card${p.combo ? " is-combo" : ""}" style="transition-delay:${i * 55}ms">
-              <div class="tap" data-detail="${attr(p.ref)}" role="button" tabindex="0">
-                ${media(p, "emoji")}
-                ${comboTag(p)}
-                <h4>${p.n}</h4>
-                <p class="desc">${infoFor(p).d}</p>
-              </div>
-              <div class="price">${priceHTML(p)}</div>
-              <div class="card-act">${addBtn(p, "add")}<button class="vermas" data-detail="${attr(p.ref)}">Ver más</button></div>
-            </div>`).join("")}
+          ${lista.length ? lista.map(cardHTML).join("")
+            : `<p class="empty">No encontramos ese producto. <a href="${waLink("Hola allhogar, busco: " + busqueda)}" target="_blank" rel="noopener">Pregúntanos por WhatsApp</a> y lo conseguimos.</p>`}
         </div>
       </article>`;
-  }).join("");
+  } else {
+    $("catalog").innerHTML = Object.entries(SECTIONS).filter(([id]) => itemsFor(id, temporada).length).map(([id, sec]) => {
+      const items = itemsFor(id, temporada);
+      return `
+        <article class="block" id="cat-${id}">
+          <h3>${sec.label}</h3>
+          <p class="note">${sec.tag} · ${SEASON_NAMES[temporada]} · ${items.length} productos</p>
+          <div class="grid">${items.map(cardHTML).join("")}</div>
+        </article>`;
+    }).join("");
+  }
   document.querySelectorAll(".card").forEach(c => cardIO.observe(c));
   $("catSub").textContent = "Productos disponibles en " + SEASON_NAMES[temporada].toLowerCase();
 }
+
+let tBuscar = null;
+$("buscar").addEventListener("input", e => {
+  clearTimeout(tBuscar);
+  tBuscar = setTimeout(() => { busqueda = e.target.value.trim(); renderCatalog(); }, 180);
+});
 
 /* ==================== FICHA DE PRODUCTO ==================== */
 function openDetail(ref){
@@ -159,6 +199,7 @@ function openDetail(ref){
   el.querySelector(".det-info").scrollTop = 0;
   $("detOv").classList.add("show");
   el.classList.add("show"); el.setAttribute("aria-hidden", "false");
+  evento("ver_producto", { valor: p.p, ref: p.ref, nombre: p.n });
 }
 /* si una foto de la galería falla, se quita; si no queda ninguna, se muestra el emoji */
 function detImgFail(img){
@@ -194,6 +235,15 @@ document.querySelector("#det .det-gal").addEventListener("scroll", e => {
   const g = e.currentTarget, k = Math.round(g.scrollLeft / g.clientWidth);
   document.querySelectorAll("#det .det-dots span").forEach((s, j) => s.classList.toggle("on", j === k));
 }, { passive:true });
+
+/* ==================== PREGUNTAS FRECUENTES ==================== */
+/* un enlace a una pregunta (#ayuda-…) la abre además de llevar hasta ella */
+document.addEventListener("click", ev => {
+  const a = ev.target.closest('a[href^="#ayuda-"]');
+  if (!a) return;
+  const d = document.querySelector(a.getAttribute("href"));
+  if (d && d.tagName === "DETAILS") d.open = true;
+});
 
 /* ==================== ENLACES DE WHATSAPP ==================== */
 $("waTop").href = waLink();

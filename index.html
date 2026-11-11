@@ -127,6 +127,10 @@
 <section class="catalog">
   <h2 class="sec-title">Catálogo completo</h2>
   <p class="sec-sub" id="catSub">Todos los productos disponibles esta temporada</p>
+  <div class="buscador">
+    <label for="buscar" class="sr-only">Buscar producto</label>
+    <input type="search" id="buscar" placeholder="🔍 Buscar producto… (ej: freidora, luces, mascota)" autocomplete="off" enterkeyhint="search">
+  </div>
   <div id="catalog"></div>
 </section>
 
@@ -147,6 +151,40 @@
   <div class="cart-body" id="cartBody"></div>
   <div class="cart-foot" id="cartFoot"></div>
 </aside>
+
+<!-- ============ PREGUNTAS FRECUENTES ============ -->
+<section class="ayuda" id="ayuda">
+  <h2 class="sec-title">Preguntas frecuentes</h2>
+  <details>
+    <summary>¿Cómo hago un pedido?</summary>
+    <p>Agrega los productos al carrito, llena tus datos de entrega y toca <b>Enviar pedido por WhatsApp</b>. Se abre WhatsApp con tu pedido ya escrito: solo tienes que enviarlo. Te respondemos para confirmar.</p>
+  </details>
+  <details>
+    <summary>¿Cómo pago?</summary>
+    <p>En efectivo, cuando recibes tu pedido (pago contra entrega). No pagas nada por adelantado.</p>
+  </details>
+  <details>
+    <summary>¿Cuánto cuesta el envío?</summary>
+    <p>El envío es gratis: el precio que ves es el que pagas. Para Galápagos te confirmamos el envío por WhatsApp.</p>
+  </details>
+  <details>
+    <summary>¿Cuánto tarda en llegar?</summary>
+    <p>Confirmamos tu pedido por WhatsApp, se despacha en 24 a 48 horas y llega en 3 a 7 días, según tu ciudad.</p>
+  </details>
+  <details>
+    <summary>¿Y si mi producto llega dañado o con fallas?</summary>
+    <p>Escríbenos por WhatsApp apenas lo recibas, con fotos o un video, y lo revisamos contigo. En la ficha de cada producto verás si tiene garantía por desperfecto de fábrica.</p>
+  </details>
+  <details>
+    <summary>¿Puedo cambiar o cancelar mi pedido?</summary>
+    <p>Sí, si todavía no se ha despachado. Escríbenos por WhatsApp lo antes posible.</p>
+  </details>
+  <details id="ayuda-datos">
+    <summary>¿Qué hacen con mis datos?</summary>
+    <p>Usamos tu nombre, cédula (si la das), teléfono y dirección solo para coordinar y entregar tu pedido. Los compartimos únicamente con el proveedor y la transportadora que lo lleva a tu casa. No los vendemos ni los usamos para otra cosa.</p>
+    <p>Tus datos de entrega se guardan en este navegador para que no tengas que escribirlos otra vez. Puedes borrarlos aquí: <button type="button" class="link-inline" data-borrar-datos>Borrar mis datos de este navegador</button>. Si quieres que borremos también la conversación de tu pedido, pídenoslo por WhatsApp.</p>
+  </details>
+</section>
 
 <section class="cta">
   <h2>¿No encuentras lo que buscas?</h2>

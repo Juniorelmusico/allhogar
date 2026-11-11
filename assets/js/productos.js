@@ -40,6 +40,16 @@ export function contarProductos(temporada){
   return refs.size;
 }
 
+/* foto para la tarjeta del catálogo y el panel. Los GIF animados de Dropi pesan
+   300 KB–1,2 MB cada uno: en la miniatura se usa la primera foto fija de la ficha.
+   El GIF se sigue viendo dentro de la ficha. */
+const esGif = u => /\.gif(\?|$)/i.test(u);
+export function miniatura(p){
+  if (!p.img || !esGif(p.img)) return p.img;
+  const fija = (INFO[p.ref]?.g || []).find(r => !esGif(r));
+  return fija ? gUrl(fija) : p.img;
+}
+
 /* ficha de un producto: descripción, puntos clave, notas y fotos.
    En los combos se arma sola a partir de los productos que incluye. */
 export function infoFor(p){

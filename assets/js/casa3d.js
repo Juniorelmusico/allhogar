@@ -55,8 +55,11 @@ let season = "primavera";             // copia local de la temporada de la tiend
 let selected = null, hovered = null;  // espacio resaltado / bajo el puntero
 
 function initThree(){
-  renderer = new THREE.WebGLRenderer({ canvas, antialias:true });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  // en celulares se dibuja con menos resolución y sombras más livianas:
+  // se ve casi igual y va más fluido en equipos económicos
+  const celular = Math.min(window.innerWidth, window.innerHeight) < 760;
+  renderer = new THREE.WebGLRenderer({ canvas, antialias:!celular || window.devicePixelRatio < 2, powerPreference:"high-performance" });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, celular ? 1.5 : 2));
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
@@ -88,7 +91,7 @@ function initThree(){
   sunLight = new THREE.DirectionalLight(0xFFF4D6, 2.0);
   sunLight.position.set(16, 22, 11);
   sunLight.castShadow = true;
-  sunLight.shadow.mapSize.set(2048, 2048);
+  sunLight.shadow.mapSize.set(celular ? 1024 : 2048, celular ? 1024 : 2048);
   const d = 20;
   sunLight.shadow.camera.left = -d;
   sunLight.shadow.camera.right = d;
