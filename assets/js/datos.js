@@ -74,8 +74,8 @@ export const SECTIONS = {
     {e:"⛄", n:"Muñecos navideños x3", p:50.00, s:["invierno"], ref:"53043", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/53043/17294767945080165284706364864.jpg"}
   ]},
   bbq:{ label:"Zona BBQ", tag:"Exterior", items:[
-    {e:"🍖", n:"Combo Parrillada: parrilla plegable + mesa", p:49.99, s:["todas"], ref:"C6:118009+172012", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/118009/2ec093d1-eae2-4786-931a-24a2aee0395e.jpg", was:58.60, combo:true},
-    {e:"🔥", n:"Parrilla plegable", p:23.60, s:["todas"], ref:"118009", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/118009/2ec093d1-eae2-4786-931a-24a2aee0395e.jpg"},
+    {e:"🍖", n:"Combo Parrillada: parrilla plegable + mesa", p:49.99, s:["todas"], ref:"C6:118009+172012", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/118009/2ec093d1-eae2-4786-931a-24a2aee0395e.jpg", was:62.99, combo:true},
+    {e:"🔥", n:"Parrilla plegable", p:27.99, s:["todas"], ref:"118009", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/118009/2ec093d1-eae2-4786-931a-24a2aee0395e.jpg"},
     {e:"🏕️", n:"Mesa plegable de camping", p:35.00, s:["todas"], ref:"172012", img:"https://d39ru7awumhhs2.cloudfront.net/ecuador/products/172012/37f3db0e-9df9-4a95-869a-c96222c5e6d0.jpg"}
   ]},
   mascota:{ label:"Zona de mascota", tag:"Exterior", items:[
