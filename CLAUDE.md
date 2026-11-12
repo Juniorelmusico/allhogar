@@ -47,6 +47,7 @@ scripts/
 - **Preguntas frecuentes** (`#ayuda` en `index.html`): solo hechos confirmados. No prometas devoluciones, reembolsos ni garantías que no estén en Dropi.
 
 - **Espacios con fotos (sin 3D):** la portada muestra una tarjeta por espacio con un mosaico de hasta 4 fotos de sus productos de la temporada (`fotosEspacio()` en `tienda.js`). Al tocarla se baja al bloque `#cat-<espacio>` del catálogo. La casa 3D (three.js) se quitó en nov. 2026 porque Junior prefirió un diseño más realista; sigue en el historial de git (`casa3d.js`, `casa3d-diorama.js`).
+- **Fotos sin publicidad de otros vendedores:** muchas fotos de Dropi son anuncios de otros proveedores (p. ej. "Aventifast", "NovaShop") con **su** número de WhatsApp. Nunca uses esas fotos ni como `img` ni en la galería `g`. Al agregar un producto, revisa sus fotos a ojo y elige una foto limpia del producto como `img`.
 - **Imágenes de productos:** se enlazan directo desde el CDN de Dropi (`https://d39ru7awumhhs2.cloudfront.net/ecuador/products/...`). Si una falla, `onerror` muestra el emoji del producto o la quita de la galería.
 
 ### Formato de un producto en `datos.js`
